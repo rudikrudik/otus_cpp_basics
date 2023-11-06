@@ -47,7 +47,7 @@ int main(int argc, char *argv[]) {
     unsigned int randomNum;
     unsigned int answer;
     unsigned int score = 0;
-    unsigned int scoreToLose = (randomRange / 3) + 1;
+    unsigned int scoreToLose = randomRange / 2;
     randomNum = randomNumber(randomRange);
 
     // Сам цикл игры
