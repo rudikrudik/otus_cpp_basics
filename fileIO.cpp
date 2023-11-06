@@ -5,6 +5,13 @@
 
 const std::string filePath = "scores_table.txt";
 
+#ifdef _WIN32
+#define OFFSET_WRITE 5
+#else
+#define OFFSET_WRITE 4
+#endif
+
+
 bool checkFile(){
     std::ifstream file(filePath);
     if(file.is_open()){
@@ -42,7 +49,7 @@ long long int findInFile(std::string &pattern){
 
             if (position != std::string::npos) {
                 long long pos = file.tellg();
-                return (pos - 5);
+                return (pos - OFFSET_WRITE);
             };
         };
     };
