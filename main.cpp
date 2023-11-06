@@ -56,7 +56,7 @@ int main(int argc, char *argv[]) {
         std::cin >> answer;
         score++;
         if(randomNum == answer){
-            score = 0;
+            scoreToLose = 0;
             printWin(score);
             writeFile(name, score);
             printScoreTable();
