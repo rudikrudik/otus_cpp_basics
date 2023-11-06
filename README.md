@@ -6,16 +6,16 @@
 
 Скачайте репозиторий:
 ```
-$ wget https://github.com/rudikrudik/otus_cpp_basics/archive/refs/heads/gues_the_number.zip
+wget https://github.com/rudikrudik/otus_cpp_basics/archive/refs/heads/gues_the_number.zip
 ```
 Разархируйте файл и перейдите в папку с исходным кодом и скопилируйте:
 ```
-$ g++ -o guess_the_number main.cpp randomNumber.cpp fileIO.cpp consoleIO.cpp
+g++ -o guess_the_number main.cpp randomNumber.cpp fileIO.cpp consoleIO.cpp
 ```
 
 Запуск игры:
 ```
-$ ./guess_the_number
+./guess_the_number
 ```
 Параметры запуска:
 
