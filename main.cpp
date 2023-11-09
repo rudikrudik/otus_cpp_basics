@@ -2,6 +2,7 @@
 #include <limits>
 #include <vector>
 #include <numeric>
+#include <cmath>
 
 class IStatistics{
 public:
