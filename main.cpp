@@ -118,6 +118,7 @@ int main() {
     statistics[3] = new Std{};
 
     double value = 0;
+    std::cout << "Enter a sequence of numbers:" << std::endl;
 
     while(std::cin >> value){
         for(int i = 0; i < size; i++){
