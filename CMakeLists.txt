@@ -4,7 +4,7 @@ project(task5_polimor)
 
 add_executable(task5_polimor
         main.cpp
-        IStatistics.h Min.h Min.cpp Max.cpp Max.h Mean.cpp Mean.h Std.cpp Std.h IStatistics.cpp)
+        IStatistics.h Min.h Min.cpp Max.cpp Max.h Mean.cpp Mean.h Std.cpp Std.h IStatistics.cpp Pct90.cpp Pct90.h Pct95.cpp Pct95.h)
 
 set_target_properties(task5_polimor PROPERTIES
         CXX_STANDARD 17
