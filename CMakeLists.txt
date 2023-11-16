@@ -4,6 +4,7 @@ project(06_homework)
 
 add_executable(06_homework
         main.cpp
+        SerialContainer.cpp
         )
 
 set_target_properties(06_homework PROPERTIES
@@ -17,5 +18,3 @@ if (MSVC)
 else()
     target_compile_options(06_homework PUBLIC -Wall -Wextra -Werror -pedantic)
 endif()
-
-
