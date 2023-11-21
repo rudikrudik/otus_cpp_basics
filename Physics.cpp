@@ -45,11 +45,11 @@ void Physics::collideWithBox(std::vector<Ball>& balls) const {
             return v < lo || v > hi;
         };
 
-        if (isOutOfRange(p.x, topLeft.x + r, bottomRight.x - r)) {
+        if (isOutOfRange(p.x, topLeft.x + r, bottomRight.x - r) && ball.isCollided()) {
             Point vector = ball.getVelocity().vector();
             vector.x = -vector.x;
             ball.setVelocity(vector);
-        } else if (isOutOfRange(p.y, topLeft.y + r, bottomRight.y - r)) {
+        } else if (isOutOfRange(p.y, topLeft.y + r, bottomRight.y - r) && ball.isCollided()) {
             Point vector = ball.getVelocity().vector();
             vector.y = -vector.y;
             ball.setVelocity(vector);
@@ -83,9 +83,5 @@ void Physics::processCollision(Ball& a, Ball& b,
     if(a.isCollided() && b.isCollided()) {
         a.setVelocity(Velocity(aV - normal * p * a.getMass()));
         b.setVelocity(Velocity(bV + normal * p * b.getMass()));
-    }
-    else{
-        a.setVelocity(Velocity(aV));
-        b.setVelocity(Velocity(bV));
     }
 }
