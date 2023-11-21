@@ -20,10 +20,10 @@ void SerialContainerPrint(T& serial){
 void SerialContainerExample(){
     std::cout << "Serial Container Example" << std::endl << std::endl;
 
-    SerialContainer serialOne = SerialContainer<float>(); // Создаем объект последовательного контейнера
+    SerialContainer serialOne = SerialContainer<int>(); // Создаем объект последовательного контейнера
 
     for(int i = 0; i < 10; i++){
-        serialOne.push_back(i + 0.1f);
+        serialOne.push_back(i);
     } // Заполняем контейнер числами от 0 до 9
 
     std::cout << "Add numbers" << std::endl;
@@ -78,7 +78,7 @@ void SerialContainerExample(){
 
     std::cout << "Copy assignment" << std::endl;
     std::cout << "Expected: obj serialTree == obj serialOne after copy" << std::endl;
-    SerialContainer serialTree = SerialContainer<float>();
+    SerialContainer serialTree = SerialContainer<int>();
     serialTree.push_back(20); serialTree.push_back(8); serialTree.push_back(12);
     std::cout << "serialTree before copy: ";
     SerialContainerPrint(serialTree);
