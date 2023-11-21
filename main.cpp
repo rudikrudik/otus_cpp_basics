@@ -1,14 +1,17 @@
 #include <iostream>
-#include "SerialContainer.h"
+#include "SerialContainer.hpp"
 
 void SerialContainerExample();
 
 int main() {
     SerialContainerExample(); // Вызов функции с примером работы последовательного контейнера
+    //SerialContainer<int> temp;
+    //temp.push_back(10);
     return 0;
 }
 
-void SerialContainerPrint(SerialContainer& serial){
+template <typename T>
+void SerialContainerPrint(T& serial){
     for(int i = 0; i < serial.size(); i++){
         std::cout << serial[i] << ' ';
     }
@@ -17,10 +20,10 @@ void SerialContainerPrint(SerialContainer& serial){
 void SerialContainerExample(){
     std::cout << "Serial Container Example" << std::endl << std::endl;
 
-    SerialContainer serialOne = SerialContainer(); // Создаем объект последовательного контейнера
+    SerialContainer serialOne = SerialContainer<float>(); // Создаем объект последовательного контейнера
 
     for(int i = 0; i < 10; i++){
-        serialOne.push_back(i);
+        serialOne.push_back(i + 0.1f);
     } // Заполняем контейнер числами от 0 до 9
 
     std::cout << "Add numbers" << std::endl;
@@ -75,7 +78,7 @@ void SerialContainerExample(){
 
     std::cout << "Copy assignment" << std::endl;
     std::cout << "Expected: obj serialTree == obj serialOne after copy" << std::endl;
-    SerialContainer serialTree = SerialContainer();
+    SerialContainer serialTree = SerialContainer<float>();
     serialTree.push_back(20); serialTree.push_back(8); serialTree.push_back(12);
     std::cout << "serialTree before copy: ";
     SerialContainerPrint(serialTree);
@@ -86,3 +89,4 @@ void SerialContainerExample(){
     std::cout << std::endl;
 
 } // Возможности последовательного контейнера
+

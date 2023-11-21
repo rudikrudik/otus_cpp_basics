@@ -1,0 +1,125 @@
+#pragma once
+#include <iostream>
+
+template<typename T>
+class SerialContainer {
+public:
+    SerialContainer();
+    ~SerialContainer() = default;
+    SerialContainer(const SerialContainer &other); // Конструктор копирования
+    SerialContainer(SerialContainer &&other) noexcept; // Конструктор перемещения
+
+    // Методы работы с объектом
+    void push_back(T data);
+    void insert(int position, T data);
+    void erase(int position);
+    int size() const;
+
+    // Перегрузки операторов
+    T operator[](int element_number);
+    SerialContainer<T>& operator=(const SerialContainer& rhs); // оператор копирования
+
+private:
+    T *m_data;
+    int m_size;
+};
+
+
+// Реализация методов
+template<typename T>
+SerialContainer<T>::SerialContainer() : m_data{nullptr}, m_size{0} {}
+
+template<typename T>
+SerialContainer<T>::SerialContainer(const SerialContainer &other) : SerialContainer(){
+    m_data = other.m_data;
+    m_size = other.m_size;
+} // Конструктор копирования
+
+template<typename T>
+SerialContainer<T>::SerialContainer(SerialContainer &&other)  noexcept : SerialContainer(){
+    m_data = other.m_data;
+    other.m_data = nullptr;
+    m_size = other.m_size;
+    other.m_size = 0;
+} // Конструктор перемещения
+
+template<typename T>
+void SerialContainer<T>::push_back(T data) {
+    T *new_memory = new T[m_size + 1];
+    for(int i = 0; i < m_size; i++){
+        new_memory[i] = m_data[i];
+    }
+    new_memory[m_size] = data;
+    delete [] m_data;
+    m_data = new_memory;
+    m_size++;
+}
+
+template<typename T>
+void SerialContainer<T>::insert(int position, T data) {
+    if(position > m_size)
+        return;
+
+    T *new_memory = new T[m_size + 1];
+    m_size++;
+    T *ptr = m_data;
+
+    for(int i = 0; i < m_size; i++, ptr++){
+        if(i == position){
+            new_memory[i] = data;
+            ptr--;
+        }
+        else{
+            new_memory[i] = *ptr;
+        }
+    }
+    delete [] m_data;
+    m_data = new_memory;
+}
+
+template<typename T>
+void SerialContainer<T>::erase(int position){
+    if(position > m_size)
+        return;
+
+    T *new_memory = new T[m_size - 1];
+    T *ptr = m_data;
+
+    for(int i = 0; i < m_size; i++, ptr++){
+        if(i == position){
+            ptr++;
+            new_memory[i] = *ptr;
+        }
+        else{
+            new_memory[i] = *ptr;
+        }
+    }
+    delete [] m_data;
+    m_data = new_memory;
+    m_size--;
+}
+
+template<typename T>
+int SerialContainer<T>::size() const {
+    return m_size;
+}
+
+template<typename T>
+T SerialContainer<T>::operator[](int element_number){
+    return *(m_data + element_number);
+} // Перегрузка оператора [] для доступа к элементу по индексу
+
+template<typename T>
+SerialContainer<T>& SerialContainer<T>::operator=(const SerialContainer& rhs){
+    SerialContainer<T> temp{rhs};
+
+    T *ptr = m_data;
+    m_data = temp.m_data;
+    temp.m_data = ptr;
+
+    int size = m_size;
+    m_size = temp.m_size;
+    temp.m_size = size;
+
+    return *this;
+} // Перегрузка оператора копирования
