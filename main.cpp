@@ -1,12 +1,14 @@
 #include <iostream>
 #include "SerialContainer.hpp"
+#include "SinglyLinkedList.hpp"
+
 
 void SerialContainerExample();
+void SinglyLinkedListExample();
 
 int main() {
-    SerialContainerExample(); // Вызов функции с примером работы последовательного контейнера
-    //SerialContainer<int> temp;
-    //temp.push_back(10);
+    //SerialContainerExample(); // Вызов функции с примером работы последовательного контейнера
+    SinglyLinkedListExample();
     return 0;
 }
 
@@ -89,4 +91,54 @@ void SerialContainerExample(){
     std::cout << std::endl;
 
 } // Возможности последовательного контейнера
+void SinglyLinkedListExample(){
+    std::cout << "Singly List Container Example" << std::endl << std::endl;
+    SinglyLinkedList listOne;
+
+    for(int i = 0; i < 10; i++){
+        listOne.push_back(i);
+    } // Заполняем list числами от 0 до 10
+
+    std::cout << "Add numbers to Singly List" << std::endl;
+    std::cout << "Expected: 0 1 2 3 4 5 6 7 8 9" << std::endl;
+    std::cout << "Result: ";
+    SerialContainerPrint(listOne);
+    std::cout << std::endl << std::endl;
+
+
+    std::cout << "Object serialOne size"<< std::endl;
+    std::cout << "Expected: 10" << std::endl;
+    std::cout << "Result: ";
+    std::cout << listOne.size() << std::endl << std::endl; // Размер контейнера
+
+    std::cout << "Delete some numbers" << std::endl;
+    std::cout << "Expected: 0 1 3 5 7 8 9" << std::endl;
+    listOne.erase(2); listOne.erase(3); listOne.erase(4); // Удаление 3, 5, 7, элемента
+    std::cout << "Result: ";
+    SerialContainerPrint(listOne);
+    std::cout << std::endl << std::endl;
+
+
+    std::cout << "Add number 10 to start list container" << std::endl;
+    std::cout << "Expected: 10 0 1 3 5 7 8 9" << std::endl;
+    listOne.insert(0, 10);
+    std::cout << "Result: ";
+    SerialContainerPrint(listOne);
+    std::cout << std::endl << std::endl;
+
+    std::cout << "Add number 20 to middle list container" << std::endl;
+    std::cout << "Expected: 10 0 1 3 20 5 7 8 9" << std::endl;
+    listOne.insert(4, 20);
+    std::cout << "Result: ";
+    SerialContainerPrint(listOne);
+    std::cout << std::endl << std::endl;
+
+    std::cout << "Add number 30 to end list container" << std::endl;
+    std::cout << "Expected: 10 0 1 3 20 5 7 8 9 30" << std::endl;
+    listOne.insert(90, 30);
+    std::cout << "Result: ";
+    SerialContainerPrint(listOne);
+    std::cout << std::endl << std::endl;
+
+}; // Возможности односвязного списка
 

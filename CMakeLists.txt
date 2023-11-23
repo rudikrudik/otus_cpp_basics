@@ -4,7 +4,8 @@ project(06_homework)
 
 add_executable(06_homework
         main.cpp
-        SerialContainer.hpp)
+        SerialContainer.hpp
+        SinglyLinkedList.hpp)
 
 set_target_properties(06_homework PROPERTIES
         CXX_STANDARD 17

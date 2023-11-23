@@ -106,7 +106,12 @@ int SerialContainer<T>::size() const {
 
 template<typename T>
 T SerialContainer<T>::operator[](int element_number){
-    return *(m_data + element_number);
+    if(element_number < m_size && element_number >= 0) {
+        return *(m_data + element_number);
+    }
+    else{
+        return static_cast<T>(0);
+    }
 } // Перегрузка оператора [] для доступа к элементу по индексу
 
 template<typename T>
