@@ -1,13 +1,15 @@
 #pragma once
 #include <iostream>
+#include <initializer_list>
 
 template<typename T>
 class SerialContainer {
 public:
     SerialContainer();
-    ~SerialContainer() = default;
     SerialContainer(const SerialContainer &other); // Конструктор копирования
     SerialContainer(SerialContainer &&other) noexcept; // Конструктор перемещения
+
+    ~SerialContainer();
 
     // Методы работы с объектом
     void push_back(T data);
@@ -16,8 +18,8 @@ public:
     int size() const;
 
     // Перегрузки операторов
-    T operator[](int element_number);
-    SerialContainer<T>& operator=(const SerialContainer& rhs); // оператор копирования
+    T& operator[](int element_number);
+    SerialContainer<T>& operator=(SerialContainer& rhs); // оператор копирования
 
 private:
     T *m_data;
@@ -30,13 +32,20 @@ template<typename T>
 SerialContainer<T>::SerialContainer() : m_data{nullptr}, m_size{0} {}
 
 template<typename T>
+SerialContainer<T>::~SerialContainer() {delete [] m_data;}
+
+template<typename T>
 SerialContainer<T>::SerialContainer(const SerialContainer &other) : SerialContainer(){
-    m_data = other.m_data;
-    m_size = other.m_size;
+    this->m_size = other.m_size;
+    this->m_data = new T[other.m_size];
+
+    for(int i = 0; i < other.m_size; i++){
+        this->m_data[i] = other.m_data[i];
+    }
 } // Конструктор копирования
 
 template<typename T>
-SerialContainer<T>::SerialContainer(SerialContainer &&other)  noexcept : SerialContainer(){
+SerialContainer<T>::SerialContainer(SerialContainer &&other)  noexcept{
     m_data = other.m_data;
     other.m_data = nullptr;
     m_size = other.m_size;
@@ -105,17 +114,12 @@ int SerialContainer<T>::size() const {
 }
 
 template<typename T>
-T SerialContainer<T>::operator[](int element_number){
-    if(element_number < m_size && element_number >= 0) {
-        return *(m_data + element_number);
-    }
-    else{
-        return static_cast<T>(0);
-    }
+T& SerialContainer<T>::operator[](int element_number){
+    return m_data[element_number];
 } // Перегрузка оператора [] для доступа к элементу по индексу
 
 template<typename T>
-SerialContainer<T>& SerialContainer<T>::operator=(const SerialContainer& rhs){
+SerialContainer<T>& SerialContainer<T>::operator=(SerialContainer& rhs){
     SerialContainer<T> temp{rhs};
 
     T *ptr = m_data;
@@ -127,4 +131,6 @@ SerialContainer<T>& SerialContainer<T>::operator=(const SerialContainer& rhs){
     temp.m_size = size;
 
     return *this;
-} // Перегрузка оператора копирования
+}
+
+// Перегрузка оператора копирования

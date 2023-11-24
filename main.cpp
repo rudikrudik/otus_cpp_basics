@@ -7,8 +7,8 @@ void SerialContainerExample();
 void SinglyLinkedListExample();
 
 int main() {
-    //SerialContainerExample(); // Вызов функции с примером работы последовательного контейнера
-    SinglyLinkedListExample();
+    SerialContainerExample(); // Вызов функции с примером работы последовательного контейнера
+    //SinglyLinkedListExample();
     return 0;
 }
 
@@ -74,7 +74,6 @@ void SerialContainerExample(){
     SerialContainerPrint(serialOne);
     std::cout << std::endl << "serialOne size: " << serialOne.size() << std::endl;
     std::cout << "Result serialTwo data: ";
-    //serialTwo.push_back(40);
     SerialContainerPrint(serialTwo);
     std::cout << std::endl << "serialTwo size: " << serialTwo.size() << std::endl << std::endl;
 
@@ -84,11 +83,21 @@ void SerialContainerExample(){
     serialTree.push_back(20); serialTree.push_back(8); serialTree.push_back(12);
     std::cout << "serialTree before copy: ";
     SerialContainerPrint(serialTree);
+    serialTree = serialOne;
     std::cout << std::endl;
     serialTree = serialOne;
     std::cout << "serialTree after copy: ";
     SerialContainerPrint(serialTree);
-    std::cout << std::endl;
+    std::cout << std::endl << std::endl;
+
+    std::cout << "Assigning a value by index" << std::endl;
+    std::cout << "Num in index [2]" << std::endl;
+    std::cout << "Before in index [2]: ";
+    std::cout << serialTree[2] << std::endl;
+    serialTree[2] = 100;
+    std::cout << "After list[2] = 100:  ";
+    std::cout << serialTree[2] << std::endl << std::endl;
+
 
 } // Возможности последовательного контейнера
 void SinglyLinkedListExample(){
@@ -139,6 +148,21 @@ void SinglyLinkedListExample(){
     std::cout << "Result: ";
     SerialContainerPrint(listOne);
     std::cout << std::endl << std::endl;
+
+    std::cout << "Copy constructor list container" << std::endl;
+    std::cout << "Expected: obj listTwo == obj listOne" << std::endl;
+    SinglyLinkedList listTwo(listOne); // Создаем второй объект контейнера
+    std::cout << "Result serialOne data: ";
+    SerialContainerPrint(listOne);
+    std::cout << std::endl << "serialOne size: " << listOne.size() << std::endl;
+    std::cout << "Result serialTwo data: ";
+    SerialContainerPrint(listTwo);
+    std::cout << std::endl << "serialTwo size: " << listTwo.size() << std::endl << std::endl;
+
+    std::cout << "Edit element in index 2" << std::endl;
+    listOne[2] = 100;
+    std::cout << "Result: ";
+    std::cout << listOne[2] << std::endl;
 
 }; // Возможности односвязного списка
 

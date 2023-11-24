@@ -3,13 +3,16 @@
 class SinglyLinkedList{
 public:
     SinglyLinkedList();
+    SinglyLinkedList(const SinglyLinkedList &other);
     ~SinglyLinkedList();
 
     int size() const;
     void push_back(int data);
     void insert(int position,int data);
     void erase(int position);
-    int operator[](int element);
+    // Перегрузка операторов
+    int& operator[](int element);
+    //SinglyLinkedList& operator=(const SinglyLinkedList rhs);
 
 private:
 
@@ -31,6 +34,12 @@ private:
 
 // Реализация методов
 SinglyLinkedList::SinglyLinkedList(): s_size{0}, head{nullptr} {}
+
+SinglyLinkedList::SinglyLinkedList(const SinglyLinkedList &other) : SinglyLinkedList() {
+    s_size = other.s_size;
+    head = other.head;
+}
+
 SinglyLinkedList::~SinglyLinkedList(){
     while(s_size){
         Node *temp = head;
@@ -98,9 +107,7 @@ void SinglyLinkedList::erase(int position) {
     s_size--;
 }
 
-int SinglyLinkedList::operator[](int element){
-    if(element > s_size){return 0;}
-
+int& SinglyLinkedList::operator[](int element){
     Node *current = this->head;
 
     while(element){
