@@ -98,7 +98,6 @@ void SerialContainerExample(){
     std::cout << "After list[2] = 100:  ";
     std::cout << serialTree[2] << std::endl << std::endl;
 
-
 } // Возможности последовательного контейнера
 void SinglyLinkedListExample(){
     std::cout << "Singly List Container Example" << std::endl << std::endl;

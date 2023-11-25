@@ -1,6 +1,4 @@
 #pragma once
-#include <iostream>
-#include <initializer_list>
 
 template<typename T>
 class SerialContainer {
@@ -8,7 +6,6 @@ public:
     SerialContainer();
     SerialContainer(const SerialContainer &other); // Конструктор копирования
     SerialContainer(SerialContainer &&other) noexcept; // Конструктор перемещения
-
     ~SerialContainer();
 
     // Методы работы с объектом
@@ -19,7 +16,7 @@ public:
 
     // Перегрузки операторов
     T& operator[](int element_number);
-    SerialContainer<T>& operator=(SerialContainer& rhs); // оператор копирования
+    SerialContainer<T>& operator=(const SerialContainer& rhs); // оператор копирования
 
 private:
     T *m_data;
@@ -119,7 +116,7 @@ T& SerialContainer<T>::operator[](int element_number){
 } // Перегрузка оператора [] для доступа к элементу по индексу
 
 template<typename T>
-SerialContainer<T>& SerialContainer<T>::operator=(SerialContainer& rhs){
+SerialContainer<T>& SerialContainer<T>::operator=(const SerialContainer& rhs){
     SerialContainer<T> temp{rhs};
 
     T *ptr = m_data;
@@ -131,6 +128,4 @@ SerialContainer<T>& SerialContainer<T>::operator=(SerialContainer& rhs){
     temp.m_size = size;
 
     return *this;
-}
-
-// Перегрузка оператора копирования
+} // Перегрузка оператора копирования
