@@ -12,7 +12,7 @@ public:
     void erase(int position);
     // Перегрузка операторов
     int& operator[](int element);
-    //SinglyLinkedList& operator=(const SinglyLinkedList rhs);
+    SinglyLinkedList& operator=(const SinglyLinkedList &rhs);
 
 private:
 
@@ -36,8 +36,18 @@ private:
 SinglyLinkedList::SinglyLinkedList(): s_size{0}, head{nullptr} {}
 
 SinglyLinkedList::SinglyLinkedList(const SinglyLinkedList &other) : SinglyLinkedList() {
-    s_size = other.s_size;
-    head = other.head;
+    this->s_size = other.s_size;
+    Node *temp = nullptr;
+    for(Node *p = other.head;  p!= nullptr; p = p->pNext){
+        Node *new_item = new Node(p->data);
+        if(!head){
+            head = new_item;
+        }
+        else{
+            temp->pNext = new_item;
+        }
+        temp = new_item;
+    }
 }
 
 SinglyLinkedList::~SinglyLinkedList(){
@@ -115,4 +125,18 @@ int& SinglyLinkedList::operator[](int element){
         element--;
     }
     return current->data;
+}
+
+SinglyLinkedList& SinglyLinkedList::operator=(const SinglyLinkedList &rhs) {
+    SinglyLinkedList temp{rhs};
+    Node *temp_data = head;
+    int temp_size = s_size;
+
+    head = temp.head;
+    s_size = temp.s_size;
+
+    temp.head = temp_data;
+    temp.s_size = temp_size;
+
+    return *this;
 }

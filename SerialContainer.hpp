@@ -16,7 +16,7 @@ public:
 
     // Перегрузки операторов
     T& operator[](int element_number);
-    SerialContainer<T>& operator=(const SerialContainer& rhs); // оператор копирования
+    SerialContainer<T>& operator=(const SerialContainer &rhs); // оператор копирования
 
 private:
     T *m_data;
@@ -116,7 +116,7 @@ T& SerialContainer<T>::operator[](int element_number){
 } // Перегрузка оператора [] для доступа к элементу по индексу
 
 template<typename T>
-SerialContainer<T>& SerialContainer<T>::operator=(const SerialContainer& rhs){
+SerialContainer<T>& SerialContainer<T>::operator=(const SerialContainer &rhs){
     SerialContainer<T> temp{rhs};
 
     T *ptr = m_data;

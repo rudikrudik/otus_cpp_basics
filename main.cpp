@@ -7,8 +7,8 @@ void SerialContainerExample();
 void SinglyLinkedListExample();
 
 int main() {
-    SerialContainerExample(); // Вызов функции с примером работы последовательного контейнера
-    //SinglyLinkedListExample();
+    //SerialContainerExample(); // Вызов функции с примером работы последовательного контейнера
+    SinglyLinkedListExample();
     return 0;
 }
 
@@ -157,6 +157,19 @@ void SinglyLinkedListExample(){
     std::cout << "Result serialTwo data: ";
     SerialContainerPrint(listTwo);
     std::cout << std::endl << "serialTwo size: " << listTwo.size() << std::endl << std::endl;
+
+    std::cout << "Copy assignment list" << std::endl;
+    std::cout << "Expected: obj listTree == obj listOne after copy" << std::endl;
+    SinglyLinkedList listTree = SinglyLinkedList();
+    listTree.push_back(20); listTree.push_back(8); listTree.push_back(12);
+    std::cout << "listTree before copy: ";
+    SerialContainerPrint(listTree);
+    listTree = listOne;
+    std::cout << std::endl;
+    listTree = listOne;
+    std::cout << "listTree after copy: ";
+    SerialContainerPrint(listTree);
+    std::cout << std::endl << std::endl;
 
     std::cout << "Edit element in index 2" << std::endl;
     listOne[2] = 100;
