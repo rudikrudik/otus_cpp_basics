@@ -1,27 +1,28 @@
 #pragma once
 
+template <typename T>
 class SinglyLinkedList{
 public:
     SinglyLinkedList();
-    SinglyLinkedList(const SinglyLinkedList &other);
+    SinglyLinkedList(const SinglyLinkedList<T> &other);
     ~SinglyLinkedList();
 
     int size() const;
-    void push_back(int data);
-    void insert(int position,int data);
+    void push_back(T data);
+    void insert(int position, T data);
     void erase(int position);
     // Перегрузка операторов
-    int& operator[](int element);
-    SinglyLinkedList& operator=(const SinglyLinkedList &rhs);
+    T& operator[](int element);
+    SinglyLinkedList<T>& operator=(const SinglyLinkedList<T> &rhs);
 
 private:
 
     class Node{
     public:
         Node *pNext;
-        int data;
+        T data;
 
-        Node(int data, Node *pNext = nullptr){
+        Node(T data, Node *pNext = nullptr){
             this->data = data;
             this->pNext = pNext;
         };
@@ -33,9 +34,11 @@ private:
 };
 
 // Реализация методов
-SinglyLinkedList::SinglyLinkedList(): s_size{0}, head{nullptr} {}
+template <typename T>
+SinglyLinkedList<T>::SinglyLinkedList(): s_size{0}, head{nullptr} {}
 
-SinglyLinkedList::SinglyLinkedList(const SinglyLinkedList &other) : SinglyLinkedList() {
+template <typename T>
+SinglyLinkedList<T>::SinglyLinkedList(const SinglyLinkedList<T> &other) : SinglyLinkedList<T>() {
     this->s_size = other.s_size;
     Node *temp = nullptr;
     for(Node *p = other.head;  p!= nullptr; p = p->pNext){
@@ -50,7 +53,8 @@ SinglyLinkedList::SinglyLinkedList(const SinglyLinkedList &other) : SinglyLinked
     }
 }
 
-SinglyLinkedList::~SinglyLinkedList(){
+template <typename T>
+SinglyLinkedList<T>::~SinglyLinkedList<T>(){
     while(s_size){
         Node *temp = head;
         head = head->pNext;
@@ -59,9 +63,11 @@ SinglyLinkedList::~SinglyLinkedList(){
     }
 }
 
-int SinglyLinkedList::size() const {return s_size;}
+template <typename T>
+int SinglyLinkedList<T>::size() const {return s_size;}
 
-void SinglyLinkedList::push_back(int data) {
+template <typename T>
+void SinglyLinkedList<T>::push_back(T data) {
     if(head == nullptr){
         head = new Node(data);
     }
@@ -75,7 +81,8 @@ void SinglyLinkedList::push_back(int data) {
     s_size++;
 }
 
-void SinglyLinkedList::insert(int position, int data) {
+template <typename T>
+void SinglyLinkedList<T>::insert(int position, T data) {
     if(position > s_size -1){
         push_back(data);
         return;
@@ -99,7 +106,8 @@ void SinglyLinkedList::insert(int position, int data) {
     s_size++;
 }
 
-void SinglyLinkedList::erase(int position) {
+template <typename T>
+void SinglyLinkedList<T>::erase(int position) {
     Node *prev = this->head;
 
     if(position == 0){
@@ -117,7 +125,8 @@ void SinglyLinkedList::erase(int position) {
     s_size--;
 }
 
-int& SinglyLinkedList::operator[](int element){
+template <typename T>
+T& SinglyLinkedList<T>::operator[](int element){
     Node *current = this->head;
 
     while(element){
@@ -127,8 +136,9 @@ int& SinglyLinkedList::operator[](int element){
     return current->data;
 }
 
-SinglyLinkedList& SinglyLinkedList::operator=(const SinglyLinkedList &rhs) {
-    SinglyLinkedList temp{rhs};
+template <typename T>
+SinglyLinkedList<T>& SinglyLinkedList<T>::operator=(const SinglyLinkedList<T> &rhs) {
+    SinglyLinkedList<T> temp{rhs};
     Node *temp_data = head;
     int temp_size = s_size;
 

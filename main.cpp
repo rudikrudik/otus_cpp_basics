@@ -14,8 +14,8 @@ int main() {
 
 template <typename T>
 void SerialContainerPrint(T& serial){
-    for(int i = 0; i < serial.size(); i++){
-        std::cout << serial[i] << ' ';
+    for(auto iter = serial.begin(); iter != serial.end(); iter++){
+        std::cout << *iter << ' ';
     }
 } // Вспомогательная функция вывода содержимого контейнера
 
@@ -101,7 +101,7 @@ void SerialContainerExample(){
 } // Возможности последовательного контейнера
 void SinglyLinkedListExample(){
     std::cout << "Singly List Container Example" << std::endl << std::endl;
-    SinglyLinkedList listOne;
+    SinglyLinkedList<int> listOne;
 
     for(int i = 0; i < 10; i++){
         listOne.push_back(i);
@@ -160,7 +160,7 @@ void SinglyLinkedListExample(){
 
     std::cout << "Copy assignment list" << std::endl;
     std::cout << "Expected: obj listTree == obj listOne after copy" << std::endl;
-    SinglyLinkedList listTree = SinglyLinkedList();
+    SinglyLinkedList listTree = SinglyLinkedList<int>();
     listTree.push_back(20); listTree.push_back(8); listTree.push_back(12);
     std::cout << "listTree before copy: ";
     SerialContainerPrint(listTree);
@@ -177,4 +177,3 @@ void SinglyLinkedListExample(){
     std::cout << listOne[2] << std::endl;
 
 }; // Возможности односвязного списка
-

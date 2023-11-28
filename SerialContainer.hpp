@@ -1,8 +1,11 @@
 #pragma once
+#include "SerialContaineriterator.hpp"
 
 template<typename T>
 class SerialContainer {
 public:
+    //friend class IteratorMassive<T>;
+
     SerialContainer();
     SerialContainer(const SerialContainer &other); // Конструктор копирования
     SerialContainer(SerialContainer &&other) noexcept; // Конструктор перемещения
@@ -17,6 +20,10 @@ public:
     // Перегрузки операторов
     T& operator[](int element_number);
     SerialContainer<T>& operator=(const SerialContainer &rhs); // оператор копирования
+
+    // Методы итератора
+    IteratorMassive<T> begin() const;
+    IteratorMassive<T> end() const;
 
 private:
     T *m_data;
@@ -128,4 +135,18 @@ SerialContainer<T>& SerialContainer<T>::operator=(const SerialContainer &rhs){
     temp.m_size = size;
 
     return *this;
-} // Перегрузка оператора копирования
+}// Перегрузка оператора копирования
+
+
+// Методы итератора
+template<typename T>
+IteratorMassive<T> SerialContainer<T>::begin() const
+{
+    return IteratorMassive(this->m_data);
+}
+
+template<typename T>
+IteratorMassive<T> SerialContainer<T>::end() const
+{
+    return IteratorMassive(this->m_data + (this->m_size - 1));
+}
