@@ -1,4 +1,5 @@
 #pragma once
+#include "SinglyLinkedListiterator.hpp"
 
 template <typename T>
 class SinglyLinkedList{
@@ -31,7 +32,13 @@ private:
 
     int s_size;
     Node *head;
+
+public:
+    // Методы итератора
+    IteratorList<Node> begin() const;
+    IteratorList<Node> end() const;
 };
+
 
 // Реализация методов
 template <typename T>
@@ -149,4 +156,15 @@ SinglyLinkedList<T>& SinglyLinkedList<T>::operator=(const SinglyLinkedList<T> &r
     temp.s_size = temp_size;
 
     return *this;
+}
+
+// Реализация методов итератора
+template<typename T>
+IteratorList<typename SinglyLinkedList<T>::Node> SinglyLinkedList<T>::begin() const {
+    return IteratorList<Node>(this->head);
+}
+
+template<typename T>
+IteratorList<typename SinglyLinkedList<T>::Node> SinglyLinkedList<T>::end() const {
+    return IteratorList<Node>(nullptr);
 }

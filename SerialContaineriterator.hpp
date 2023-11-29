@@ -1,5 +1,4 @@
 #pragma once
-#include <ostream>
 
 template <typename T>
 class IteratorMassive{
@@ -10,7 +9,7 @@ public:
     IteratorMassive operator++();
     IteratorMassive operator++(int);
     T& operator*();
-    bool operator!=(const IteratorMassive<T> &rhs) const;
+    bool operator!=(const IteratorMassive<T> &other) const;
 
 private:
     T *ptr;
@@ -38,7 +37,7 @@ T& IteratorMassive<T>::operator*() {
 }
 
 template<typename T>
-bool IteratorMassive<T>::operator!=(const IteratorMassive<T> &rhs) const{
-    return ptr != (rhs.ptr + 1);
+bool IteratorMassive<T>::operator!=(const IteratorMassive<T> &other) const{
+    return ptr != (other.ptr + 1);
 }
 

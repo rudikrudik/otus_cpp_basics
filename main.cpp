@@ -14,7 +14,7 @@ int main() {
 
 template <typename T>
 void SerialContainerPrint(T& serial){
-    for(auto iter = serial.begin(); iter != serial.end(); iter++){
+    for(auto iter = serial.begin(); iter != serial.end(); ++iter){
         std::cout << *iter << ' ';
     }
 } // Вспомогательная функция вывода содержимого контейнера

@@ -4,8 +4,6 @@
 template<typename T>
 class SerialContainer {
 public:
-    //friend class IteratorMassive<T>;
-
     SerialContainer();
     SerialContainer(const SerialContainer &other); // Конструктор копирования
     SerialContainer(SerialContainer &&other) noexcept; // Конструктор перемещения
