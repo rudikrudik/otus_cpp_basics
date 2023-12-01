@@ -1,37 +1,36 @@
 #pragma once
-#include "ostream"
 
 template<typename T>
-class IteratorList {
+class Iterator {
 public:
-    IteratorList(T *node);
-    ~IteratorList() = default;
+    Iterator(T *node);
+    ~Iterator() = default;
 
-    bool operator!=(const IteratorList<T> &other) const;
-    IteratorList<T> operator++();
-    int& operator*();
+    bool operator!=(const Iterator<T> &other) const;
+    Iterator<T> operator++();
+    T& operator*();
 
     T *current;
 
 };
 
 template<typename T>
-IteratorList<T>::IteratorList(T *node) {
+Iterator<T>::Iterator(T *node) {
     current = node;
 }
 
 template<typename T>
-bool IteratorList<T>::operator!=(const IteratorList<T> &other) const {
+bool Iterator<T>::operator!=(const Iterator<T> &other) const {
     return current != other.current;
 }
 
 template<typename T>
-IteratorList<T> IteratorList<T>::operator++() {
+typename Iterator<T> Iterator<T>::operator++() {
     current = current->pNext;
     return *this;
 }
 
 template<typename T>
-int& IteratorList<T>::operator*() {
+T& Iterator<T>::operator*() {
     return current->data;
 }

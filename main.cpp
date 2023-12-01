@@ -1,16 +1,20 @@
 #include <iostream>
 #include "SerialContainer.hpp"
 #include "SinglyLinkedList.hpp"
+#include "DoubleLinkList.hpp"
 
 
 void SerialContainerExample();
 void SinglyLinkedListExample();
+void DoubleLinkListExample();
 
 int main() {
     //SerialContainerExample(); // Вызов функции с примером работы последовательного контейнера
     SinglyLinkedListExample();
+    //DoubleLinkListExample();
     return 0;
 }
+
 
 template <typename T>
 void SerialContainerPrint(T& serial){
@@ -18,6 +22,7 @@ void SerialContainerPrint(T& serial){
         std::cout << *iter << ' ';
     }
 } // Вспомогательная функция вывода содержимого контейнера
+
 
 void SerialContainerExample(){
     std::cout << "Serial Container Example" << std::endl << std::endl;
@@ -176,4 +181,21 @@ void SinglyLinkedListExample(){
     std::cout << "Result: ";
     std::cout << listOne[2] << std::endl;
 
-}; // Возможности односвязного списка
+} // Возможности односвязного списка
+void DoubleLinkListExample(){
+    DoubleLinkedList d_listOne = DoubleLinkedList<std::string>();
+    d_listOne.push_back("Hello");
+    d_listOne.push_back("C++");
+    d_listOne.push_back("Program");
+
+    std::cout << "Size DoubleLinkList: "<< d_listOne.size() << std::endl;
+    for(int i = 0; i < d_listOne.size(); i++){
+        std::cout << d_listOne[i] << ' ' << std::endl;
+    }
+
+    std::cout << "Size DoubleLinkList Iterator" << std::endl;
+    for(auto iter = d_listOne.begin(); iter != d_listOne.end(); iter++){
+        std::cout << *iter << ' ' << std::endl;
+    }
+
+}

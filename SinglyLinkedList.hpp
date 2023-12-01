@@ -1,5 +1,4 @@
 #pragma once
-#include "SinglyLinkedListiterator.hpp"
 
 template <typename T>
 class SinglyLinkedList{
@@ -34,9 +33,22 @@ private:
     Node *head;
 
 public:
-    // Методы итератора
-    IteratorList<Node> begin() const;
-    IteratorList<Node> end() const;
+    class Iterator {
+    public:
+        Iterator(Node *node);
+        ~Iterator() = default;
+
+        bool operator!=(const Iterator &other) const;
+        Iterator operator++();
+        T& operator*();
+    private:
+        Node *current;
+
+    };
+
+public:
+    Iterator begin() const;
+    Iterator end() const;
 };
 
 
@@ -159,12 +171,35 @@ SinglyLinkedList<T>& SinglyLinkedList<T>::operator=(const SinglyLinkedList<T> &r
 }
 
 // Реализация методов итератора
+
 template<typename T>
-IteratorList<typename SinglyLinkedList<T>::Node> SinglyLinkedList<T>::begin() const {
-    return IteratorList<Node>(this->head);
+SinglyLinkedList<T>::Iterator::Iterator(Node *node) {
+    current = node;
 }
 
 template<typename T>
-IteratorList<typename SinglyLinkedList<T>::Node> SinglyLinkedList<T>::end() const {
-    return IteratorList<Node>(nullptr);
+typename SinglyLinkedList<T>::Iterator SinglyLinkedList<T>::begin() const {
+    return Iterator(this->head);
+}
+
+template<typename T>
+typename SinglyLinkedList<T>::Iterator SinglyLinkedList<T>::end() const {
+    return Iterator(nullptr);
+}
+
+
+template<typename T>
+bool SinglyLinkedList<T>::Iterator::operator!=(const Iterator &other) const {
+    return current != other.current;
+}
+
+template<typename T>
+typename SinglyLinkedList<T>::Iterator SinglyLinkedList<T>::Iterator::operator++() {
+    current = current->pNext;
+    return *this;
+}
+
+template<typename T>
+T& SinglyLinkedList<T>::Iterator::operator*() {
+    return current->data;
 }
