@@ -39,7 +39,7 @@ public:
         D_node *current;
     };
 
-    // Обьявление медотов итератора
+    // Объявление методов итератора
     Iterator begin() const;
     Iterator rbegin() const;
     Iterator end() const;
@@ -49,6 +49,9 @@ public:
 
 template <typename T>
 DoubleLinkedList<T>::DoubleLinkedList() : s_size{0}, head{nullptr}, tail{nullptr} {}
+
+//TODO
+// Сделать деструктор итератора
 
 template <typename T>
 void DoubleLinkedList<T>::push_back(T data) {

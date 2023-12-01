@@ -7,7 +7,6 @@ add_executable(06_homework
         SerialContainer.hpp
         SinglyLinkedList.hpp
         SerialContaineriterator.hpp
-        SinglyLinkedListiterator.hpp
         DoubleLinkList.hpp)
 
 set_target_properties(06_homework PROPERTIES
