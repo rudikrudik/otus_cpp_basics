@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include "SerialContainer.hpp"
 #include "SinglyLinkedList.hpp"
 #include "DoubleLinkList.hpp"
@@ -10,8 +11,8 @@ void DoubleLinkListExample();
 
 int main() {
     //SerialContainerExample(); // Вызов функции с примером работы последовательного контейнера
-    SinglyLinkedListExample();
-    //DoubleLinkListExample();
+    //SinglyLinkedListExample();
+    DoubleLinkListExample();
     return 0;
 }
 
@@ -187,6 +188,10 @@ void DoubleLinkListExample(){
     d_listOne.push_back("Hello");
     d_listOne.push_back("C++");
     d_listOne.push_back("Program");
+
+    std::string temp = d_listOne.pop_back();
+
+    std::cout << temp << std::endl;
 
     std::cout << "Size DoubleLinkList: "<< d_listOne.size() << std::endl;
     for(int i = 0; i < d_listOne.size(); i++){

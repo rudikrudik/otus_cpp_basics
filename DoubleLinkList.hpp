@@ -4,8 +4,12 @@ template <typename T>
 class DoubleLinkedList{
 public:
     DoubleLinkedList();
+    ~DoubleLinkedList();
+    //~DoubleLinkedList();
     void push_back(T data);
     void push_front(T data);
+    T pop_back();
+    T pop_front();
     int size() const;
     T& operator[](int index);
 
@@ -50,8 +54,12 @@ public:
 template <typename T>
 DoubleLinkedList<T>::DoubleLinkedList() : s_size{0}, head{nullptr}, tail{nullptr} {}
 
-//TODO
-// Сделать деструктор итератора
+template <typename T>
+DoubleLinkedList<T>::~DoubleLinkedList() {
+    while(s_size){
+        pop_front();
+    }
+}
 
 template <typename T>
 void DoubleLinkedList<T>::push_back(T data) {
@@ -81,6 +89,24 @@ void DoubleLinkedList<T>::push_front(T data) {
     new_data->next = head;
     head = new_data;
     s_size++;
+}
+
+template <typename T>
+T DoubleLinkedList<T>::pop_back() {
+    D_node *temp = tail;
+    tail = temp->prev;
+    tail->next = nullptr;
+    s_size--;
+    return temp->data;
+}
+
+template <typename T>
+T DoubleLinkedList<T>::pop_front() {
+    D_node *temp = head;
+    head = temp->next;
+    head->prev = nullptr;
+    s_size--;
+    return temp->data;
 }
 
 template <typename T>
