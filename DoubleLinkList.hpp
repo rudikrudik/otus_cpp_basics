@@ -195,6 +195,18 @@ T& DoubleLinkedList<T>::operator[](int index) {
 template <typename T>
 DoubleLinkedList<T>& DoubleLinkedList<T>::operator=(const DoubleLinkedList<T> &rhs) {
     DoubleLinkedList<T> temp{rhs};
+    D_node *temp_head = head;
+    D_node *temp_tail = tail;
+    int temp_size = s_size;
+
+    head = temp.head;
+    tail = temp.tail;
+    s_size = temp.s_size;
+
+    temp.head = temp_head;
+    temp.tail = temp_tail;
+    temp.s_size = temp_size;
+
     return *this;
 }
 

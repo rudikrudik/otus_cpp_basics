@@ -170,7 +170,6 @@ void SinglyLinkedListExample(){
     SerialContainerPrint(listTree);
     listTree = listOne;
     std::cout << std::endl;
-    listTree = listOne;
     std::cout << "listTree after copy: ";
     SerialContainerPrint(listTree);
     std::cout << std::endl << std::endl;
@@ -229,7 +228,7 @@ void DoubleLinkListExample(){
     SerialContainerPrint(d_listOne);
     std::cout << std::endl << std::endl;
 
-    std::cout << "Copy constructor list container" << std::endl;
+    std::cout << "Copy constructor double link list container" << std::endl;
     std::cout << "Expected: obj listTwo == obj listOne" << std::endl;
     DoubleLinkedList d_listTwo(d_listOne); // Создаем второй объект контейнера
     std::cout << "Result serialOne data: ";
@@ -239,15 +238,14 @@ void DoubleLinkListExample(){
     SerialContainerPrint(d_listTwo);
     std::cout << std::endl << "serialTwo size: " << d_listTwo.size() << std::endl << std::endl;
 
-    std::cout << "Copy assignment list" << std::endl;
+    std::cout << "Copy assignment double link list" << std::endl;
     std::cout << "Expected: obj listTree == obj listOne after copy" << std::endl;
-    SinglyLinkedList d_listTree = SinglyLinkedList<int>();
+    DoubleLinkedList d_listTree = DoubleLinkedList<int>();
     d_listTree.push_back(20); d_listTree.push_back(8); d_listTree.push_back(12);
     std::cout << "listTree before copy: ";
     SerialContainerPrint(d_listTree);
     d_listTree = d_listOne;
     std::cout << std::endl;
-    d_listTree = d_listOne;
     std::cout << "listTree after copy: ";
     SerialContainerPrint(d_listTree);
     std::cout << std::endl << std::endl;
