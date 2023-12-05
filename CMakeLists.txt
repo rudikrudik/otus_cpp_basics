@@ -9,6 +9,11 @@ add_executable(06_homework
         SerialContaineriterator.hpp
         DoubleLinkList.hpp)
 
+add_executable(
+        tests_container
+        tests/SerialContainer_tests.cpp
+)
+
 set_target_properties(06_homework PROPERTIES
         CXX_STANDARD 17
         CXX_STANDARD_REQUIRED ON
