@@ -14,6 +14,7 @@ public:
     T erase(int position);
     int size() const;
     T& operator[](int index);
+    DoubleLinkedList<T>& operator=(const DoubleLinkedList<T> &rhs);
 
 private:
     class D_node{
@@ -189,6 +190,12 @@ T& DoubleLinkedList<T>::operator[](int index) {
         index--;
     }
     return current->data;
+}
+
+template <typename T>
+DoubleLinkedList<T>& DoubleLinkedList<T>::operator=(const DoubleLinkedList<T> &rhs) {
+    DoubleLinkedList<T> temp{rhs};
+    return *this;
 }
 
 //Методы итератора

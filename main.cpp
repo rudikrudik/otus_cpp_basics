@@ -183,77 +183,77 @@ void SinglyLinkedListExample(){
 } // Возможности односвязного списка
 void DoubleLinkListExample(){
     std::cout << "Double List Container Example" << std::endl << std::endl;
-    DoubleLinkedList<int> listOne;
+    DoubleLinkedList<int> d_listOne;
 
     for(int i = 0; i < 10; i++){
-        listOne.push_back(i);
+        d_listOne.push_back(i);
     } // Заполняем list числами от 0 до 10
 
     std::cout << "Add numbers to Double List" << std::endl;
     std::cout << "Expected: 0 1 2 3 4 5 6 7 8 9" << std::endl;
     std::cout << "Result: ";
-    SerialContainerPrint(listOne);
+    SerialContainerPrint(d_listOne);
     std::cout << std::endl << std::endl;
 
     std::cout << "Object serialOne size"<< std::endl;
     std::cout << "Expected: 10" << std::endl;
     std::cout << "Result: ";
-    std::cout << listOne.size() << std::endl << std::endl; // Размер контейнера
+    std::cout << d_listOne.size() << std::endl << std::endl; // Размер контейнера
 
     std::cout << "Delete some numbers" << std::endl;
     std::cout << "Expected: 0 1 3 5 7 8 9" << std::endl;
-    listOne.erase(2); listOne.erase(3); listOne.erase(4); // Удаление 3, 5, 7, элемента
+    d_listOne.erase(2); d_listOne.erase(3); d_listOne.erase(4); // Удаление 3, 5, 7, элемента
     std::cout << "Result: ";
-    SerialContainerPrint(listOne);
+    SerialContainerPrint(d_listOne);
     std::cout << std::endl << std::endl;
 
 
     std::cout << "Add number 10 to start double list container" << std::endl;
     std::cout << "Expected: 10 0 1 3 5 7 8 9" << std::endl;
-    listOne.insert(0, 10);
+    d_listOne.insert(0, 10);
     std::cout << "Result: ";
-    SerialContainerPrint(listOne);
+    SerialContainerPrint(d_listOne);
     std::cout << std::endl << std::endl;
 
     std::cout << "Add number 20 to middle double list container" << std::endl;
     std::cout << "Expected: 10 0 1 3 20 5 7 8 9" << std::endl;
-    listOne.insert(4, 20);
+    d_listOne.insert(4, 20);
     std::cout << "Result: ";
-    SerialContainerPrint(listOne);
+    SerialContainerPrint(d_listOne);
     std::cout << std::endl << std::endl;
 
     std::cout << "Add number 30 to end double list container" << std::endl;
     std::cout << "Expected: 10 0 1 3 20 5 7 8 9 30" << std::endl;
-    listOne.insert(90, 30);
+    d_listOne.insert(90, 30);
     std::cout << "Result: ";
-    SerialContainerPrint(listOne);
+    SerialContainerPrint(d_listOne);
     std::cout << std::endl << std::endl;
 
     std::cout << "Copy constructor list container" << std::endl;
     std::cout << "Expected: obj listTwo == obj listOne" << std::endl;
-    DoubleLinkedList listTwo(listOne); // Создаем второй объект контейнера
+    DoubleLinkedList d_listTwo(d_listOne); // Создаем второй объект контейнера
     std::cout << "Result serialOne data: ";
-    SerialContainerPrint(listOne);
-    std::cout << std::endl << "serialOne size: " << listOne.size() << std::endl;
+    SerialContainerPrint(d_listOne);
+    std::cout << std::endl << "serialOne size: " << d_listOne.size() << std::endl;
     std::cout << "Result serialTwo data: ";
-    SerialContainerPrint(listTwo);
-    std::cout << std::endl << "serialTwo size: " << listTwo.size() << std::endl << std::endl;
-/*
+    SerialContainerPrint(d_listTwo);
+    std::cout << std::endl << "serialTwo size: " << d_listTwo.size() << std::endl << std::endl;
+
     std::cout << "Copy assignment list" << std::endl;
     std::cout << "Expected: obj listTree == obj listOne after copy" << std::endl;
-    SinglyLinkedList listTree = SinglyLinkedList<int>();
-    listTree.push_back(20); listTree.push_back(8); listTree.push_back(12);
+    SinglyLinkedList d_listTree = SinglyLinkedList<int>();
+    d_listTree.push_back(20); d_listTree.push_back(8); d_listTree.push_back(12);
     std::cout << "listTree before copy: ";
-    SerialContainerPrint(listTree);
-    listTree = listOne;
+    SerialContainerPrint(d_listTree);
+    d_listTree = d_listOne;
     std::cout << std::endl;
-    listTree = listOne;
+    d_listTree = d_listOne;
     std::cout << "listTree after copy: ";
-    SerialContainerPrint(listTree);
+    SerialContainerPrint(d_listTree);
     std::cout << std::endl << std::endl;
-*/
+
     std::cout << "Edit element in index 2" << std::endl;
-    listOne[2] = 100;
+    d_listOne[2] = 100;
     std::cout << "Result: ";
-    std::cout << listOne[2] << std::endl;
+    std::cout << d_listOne[2] << std::endl;
 }
