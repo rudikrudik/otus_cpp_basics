@@ -16,14 +16,12 @@ int main() {
     return 0;
 }
 
-
 template <typename T>
 void SerialContainerPrint(T& serial){
     for(auto iter = serial.begin(); iter != serial.end(); ++iter){
         std::cout << *iter << ' ';
     }
 } // Вспомогательная функция вывода содержимого контейнера
-
 
 void SerialContainerExample(){
     std::cout << "Serial Container Example" << std::endl << std::endl;
@@ -184,23 +182,78 @@ void SinglyLinkedListExample(){
 
 } // Возможности односвязного списка
 void DoubleLinkListExample(){
-    DoubleLinkedList d_listOne = DoubleLinkedList<std::string>();
-    d_listOne.push_back("Hello");
-    d_listOne.push_back("C++");
-    d_listOne.push_back("Program");
+    std::cout << "Double List Container Example" << std::endl << std::endl;
+    DoubleLinkedList<int> listOne;
 
-    std::string temp = d_listOne.pop_back();
+    for(int i = 0; i < 10; i++){
+        listOne.push_back(i);
+    } // Заполняем list числами от 0 до 10
 
-    std::cout << temp << std::endl;
+    std::cout << "Add numbers to Double List" << std::endl;
+    std::cout << "Expected: 0 1 2 3 4 5 6 7 8 9" << std::endl;
+    std::cout << "Result: ";
+    SerialContainerPrint(listOne);
+    std::cout << std::endl << std::endl;
 
-    std::cout << "Size DoubleLinkList: "<< d_listOne.size() << std::endl;
-    for(int i = 0; i < d_listOne.size(); i++){
-        std::cout << d_listOne[i] << ' ' << std::endl;
-    }
+    std::cout << "Object serialOne size"<< std::endl;
+    std::cout << "Expected: 10" << std::endl;
+    std::cout << "Result: ";
+    std::cout << listOne.size() << std::endl << std::endl; // Размер контейнера
 
-    std::cout << "Size DoubleLinkList Iterator" << std::endl;
-    for(auto iter = d_listOne.begin(); iter != d_listOne.end(); iter++){
-        std::cout << *iter << ' ' << std::endl;
-    }
+    std::cout << "Delete some numbers" << std::endl;
+    std::cout << "Expected: 0 1 3 5 7 8 9" << std::endl;
+    listOne.erase(2); listOne.erase(3); listOne.erase(4); // Удаление 3, 5, 7, элемента
+    std::cout << "Result: ";
+    SerialContainerPrint(listOne);
+    std::cout << std::endl << std::endl;
 
+
+    std::cout << "Add number 10 to start double list container" << std::endl;
+    std::cout << "Expected: 10 0 1 3 5 7 8 9" << std::endl;
+    listOne.insert(0, 10);
+    std::cout << "Result: ";
+    SerialContainerPrint(listOne);
+    std::cout << std::endl << std::endl;
+
+    std::cout << "Add number 20 to middle double list container" << std::endl;
+    std::cout << "Expected: 10 0 1 3 20 5 7 8 9" << std::endl;
+    listOne.insert(4, 20);
+    std::cout << "Result: ";
+    SerialContainerPrint(listOne);
+    std::cout << std::endl << std::endl;
+
+    std::cout << "Add number 30 to end double list container" << std::endl;
+    std::cout << "Expected: 10 0 1 3 20 5 7 8 9 30" << std::endl;
+    listOne.insert(90, 30);
+    std::cout << "Result: ";
+    SerialContainerPrint(listOne);
+    std::cout << std::endl << std::endl;
+
+    std::cout << "Copy constructor list container" << std::endl;
+    std::cout << "Expected: obj listTwo == obj listOne" << std::endl;
+    DoubleLinkedList listTwo(listOne); // Создаем второй объект контейнера
+    std::cout << "Result serialOne data: ";
+    SerialContainerPrint(listOne);
+    std::cout << std::endl << "serialOne size: " << listOne.size() << std::endl;
+    std::cout << "Result serialTwo data: ";
+    SerialContainerPrint(listTwo);
+    std::cout << std::endl << "serialTwo size: " << listTwo.size() << std::endl << std::endl;
+/*
+    std::cout << "Copy assignment list" << std::endl;
+    std::cout << "Expected: obj listTree == obj listOne after copy" << std::endl;
+    SinglyLinkedList listTree = SinglyLinkedList<int>();
+    listTree.push_back(20); listTree.push_back(8); listTree.push_back(12);
+    std::cout << "listTree before copy: ";
+    SerialContainerPrint(listTree);
+    listTree = listOne;
+    std::cout << std::endl;
+    listTree = listOne;
+    std::cout << "listTree after copy: ";
+    SerialContainerPrint(listTree);
+    std::cout << std::endl << std::endl;
+*/
+    std::cout << "Edit element in index 2" << std::endl;
+    listOne[2] = 100;
+    std::cout << "Result: ";
+    std::cout << listOne[2] << std::endl;
 }

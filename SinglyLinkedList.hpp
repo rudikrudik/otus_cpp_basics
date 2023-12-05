@@ -29,7 +29,7 @@ private:
 
     };
 
-    int s_size;
+    int s_size{};
     Node *head;
 
 public:

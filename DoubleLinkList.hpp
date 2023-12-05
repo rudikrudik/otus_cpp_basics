@@ -4,12 +4,14 @@ template <typename T>
 class DoubleLinkedList{
 public:
     DoubleLinkedList();
+    DoubleLinkedList(const DoubleLinkedList &other);
     ~DoubleLinkedList();
-    //~DoubleLinkedList();
     void push_back(T data);
     void push_front(T data);
+    void insert(int position, T data);
     T pop_back();
     T pop_front();
+    T erase(int position);
     int size() const;
     T& operator[](int index);
 
@@ -27,7 +29,7 @@ private:
         }
     };
 
-    int s_size;
+    int s_size{};
     D_node *head;
     D_node *tail;
 
@@ -42,17 +44,36 @@ public:
     private:
         D_node *current;
     };
-
     // Объявление методов итератора
     Iterator begin() const;
-    Iterator rbegin() const;
     Iterator end() const;
-    Iterator rend() const;
-
 };
 
 template <typename T>
 DoubleLinkedList<T>::DoubleLinkedList() : s_size{0}, head{nullptr}, tail{nullptr} {}
+
+
+template <typename T>
+DoubleLinkedList<T>::DoubleLinkedList(const DoubleLinkedList<T> &other) : DoubleLinkedList<T>() {
+    this->s_size = other.s_size;
+    D_node *temp = nullptr;
+    D_node *temp_prev = nullptr;
+
+    for(D_node *ptr = other.head; ptr != nullptr; ptr = ptr->next){
+        D_node *new_item = new D_node(ptr->data);
+        if(head == nullptr){
+            head = new_item;
+            temp = head;
+        }
+        else{
+            temp->next = new_item;
+            new_item->prev = temp_prev;
+            temp = new_item;
+        }
+        temp_prev = new_item;
+    }
+    tail = temp;
+}
 
 template <typename T>
 DoubleLinkedList<T>::~DoubleLinkedList() {
@@ -92,6 +113,32 @@ void DoubleLinkedList<T>::push_front(T data) {
 }
 
 template <typename T>
+void DoubleLinkedList<T>::insert(int position, T data) {
+    if(position == 0){
+        push_front(data);
+        return;
+    }
+    if(position >= s_size - 1){
+        push_back(data);
+        return;
+    }
+
+    D_node *current = head;
+
+    while(position){
+        current = current->next;
+        position--;
+    }
+
+    D_node *temp = new D_node(data);
+
+    temp->next = current;
+    temp->prev = current->prev;
+    current->prev->next = temp;
+    s_size++;
+}
+
+template <typename T>
 T DoubleLinkedList<T>::pop_back() {
     D_node *temp = tail;
     tail = temp->prev;
@@ -104,7 +151,29 @@ template <typename T>
 T DoubleLinkedList<T>::pop_front() {
     D_node *temp = head;
     head = temp->next;
-    head->prev = nullptr;
+    s_size--;
+    return temp->data;
+}
+
+template <typename T>
+T DoubleLinkedList<T>::erase(int position) {
+    if(position == 0){
+        return pop_front();
+    }
+    if(position >= s_size -1){
+        return pop_back();
+    }
+
+    D_node *current = head;
+    while(position){
+        current = current->next;
+        position--;
+    }
+
+    D_node *temp = current;
+    current->prev->next = current->next;
+    current->next->prev = current->prev;
+    delete current;
     s_size--;
     return temp->data;
 }
@@ -134,17 +203,7 @@ typename DoubleLinkedList<T>::Iterator DoubleLinkedList<T>::begin() const {
 }
 
 template <typename T>
-typename DoubleLinkedList<T>::Iterator DoubleLinkedList<T>::rbegin() const{
-    return Iterator(this->tail);
-}
-
-template <typename T>
 typename DoubleLinkedList<T>::Iterator DoubleLinkedList<T>::end() const {
-    return Iterator(nullptr);
-}
-
-template <typename T>
-typename DoubleLinkedList<T>::Iterator DoubleLinkedList<T>::rend() const {
     return Iterator(nullptr);
 }
 
