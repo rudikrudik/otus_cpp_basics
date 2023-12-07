@@ -94,15 +94,15 @@ void SerialContainer<T>::erase(int position){
         return;
 
     T *new_memory = new T[m_size - 1];
+    T *pTempNewMemory = new_memory;
     T *ptr = m_data;
 
-    for(int i = 0; i < m_size; i++, ptr++){
-        if(i == position){
-            ptr++;
-            new_memory[i] = *ptr;
+    for(int i = 0; i < m_size; i++, ptr++, pTempNewMemory++){
+        if(position == i){
+            pTempNewMemory--;
         }
         else{
-            new_memory[i] = *ptr;
+            *pTempNewMemory = *ptr;
         }
     }
     delete [] m_data;
