@@ -34,7 +34,10 @@ template<typename T>
 SerialContainer<T>::SerialContainer() : m_data{nullptr}, m_size{0} {}
 
 template<typename T>
-SerialContainer<T>::~SerialContainer() {delete [] m_data;}
+SerialContainer<T>::~SerialContainer() {
+    delete [] m_data;
+    m_data = nullptr;
+}
 
 template<typename T>
 SerialContainer<T>::SerialContainer(const SerialContainer &other) : SerialContainer(){
