@@ -2,17 +2,14 @@ cmake_minimum_required(VERSION 3.8)
 
 project(06_homework)
 
+add_subdirectory(tests)
+
 add_executable(06_homework
         main.cpp
         SerialContainer.hpp
         SinglyLinkedList.hpp
         SerialContaineriterator.hpp
         DoubleLinkList.hpp)
-
-add_executable(
-        tests_container
-        tests/SerialContainer_tests.cpp
-)
 
 set_target_properties(06_homework PROPERTIES
         CXX_STANDARD 17
