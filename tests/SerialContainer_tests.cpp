@@ -208,6 +208,20 @@ TEST_F(SerialContainerFixtureInt, InsertElemMoreContainerSize){
     // Assert
     EXPECT_EQ(serial.size(), 10);
 }
+TEST_F(SerialContainerFixtureInt, CheckElements){
+    // Arrange
+    bool flag = true;
+
+    // Act
+    for(int i = 0; i < SIZE; i++){
+        if(serial[i] != i){
+            flag = false;
+        }
+    }
+
+    // Assert
+    EXPECT_TRUE(flag);
+}
 
 // TODO сделать проверку на деструктор
 /*
