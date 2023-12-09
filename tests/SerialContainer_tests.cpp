@@ -243,10 +243,3 @@ TEST(SerialContainer, Destructor){
     EXPECT_TRUE(serial.size() == 10);
 }
 */
-
-int main(int argc, char **argv)
-{
-    ::testing::InitGoogleTest(&argc, argv);
-
-    return RUN_ALL_TESTS();
-}
