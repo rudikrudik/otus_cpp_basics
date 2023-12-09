@@ -2,12 +2,13 @@
 #include <gtest/gtest.h>
 #include "../SerialContainer.hpp"
 
+const int SIZE = 10;
+
 struct SerialContainerFixtureInt : public testing::Test{
-    const int size = 10;
     SerialContainer<int> serial;
 
     void SetUp() override{
-        for(int i = 0; i < size; i++){
+        for(int i = 0; i < SIZE; i++){
             serial.push_back(i);
         }
     }
@@ -30,7 +31,7 @@ TEST(SerialContainerInt, PushBack){
     bool flag = true;
 
     // Act
-    for(int i = 0; i < 10; i++){
+    for(int i = 0; i < SIZE; i++){
         serial.push_back(i);
         if(serial[i] != i){
             flag = false;
@@ -46,7 +47,7 @@ TEST(SerialContainerInt, PushFront){
     bool flag = true;
 
     // Act
-    for(int i = 0; i < 10; i++){
+    for(int i = 0; i < SIZE; i++){
         serial.insert(0, i);
         if(serial[0] != i){
             flag = false;
@@ -61,7 +62,7 @@ TEST_F(SerialContainerFixtureInt, InsertMiddle){
     bool flag = true;
 
     // Act
-    for(int i = 0; i < 10; i++){
+    for(int i = 0; i < SIZE; i++){
         serial.insert(position, i);
             if(serial[position] != i){
                 flag = false;
@@ -80,7 +81,7 @@ TEST_F(SerialContainerFixtureInt, Size){
 TEST_F(SerialContainerFixtureInt, PopBack){
     // Arrange
     // Act
-    for(int i = 0; i < size; i++){
+    for(int i = 0; i < SIZE; i++){
         serial.erase(serial.size() - 1);
     }
     // Assert
@@ -89,7 +90,7 @@ TEST_F(SerialContainerFixtureInt, PopBack){
 TEST_F(SerialContainerFixtureInt, PopFront){
     // Arrange
     //Act
-    for(int i = 0; i < size; i++){
+    for(int i = 0; i < SIZE; i++){
         serial.erase(0);
     }
     //Assert
@@ -121,7 +122,7 @@ TEST_F(SerialContainerFixtureInt, GetElement){
     // Arrange
     bool flag = true;
     // Act
-    for(int i = 0; i < size; i++){
+    for(int i = 0; i < SIZE; i++){
         if(serial[i] != i){
             flag = false;
         }
@@ -138,7 +139,7 @@ TEST_F(SerialContainerFixtureInt, CopyContainer){
 
     bool flag = true;
     //Act
-    for(int i = 0; i < size; i++){
+    for(int i = 0; i < SIZE; i++){
         if(serial[i] != serialTwo[i]){
             flag = false;
         }
