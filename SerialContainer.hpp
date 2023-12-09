@@ -14,6 +14,7 @@ public:
     void insert(int position, T data);
     void erase(int position);
     int size() const;
+    T* getStart();
 
     // Перегрузки операторов
     T& operator[](int element_number);
@@ -35,7 +36,7 @@ SerialContainer<T>::SerialContainer() : m_data{nullptr}, m_size{0} {}
 
 template<typename T>
 SerialContainer<T>::~SerialContainer() {
-    delete [] m_data;
+    delete m_data;
     m_data = nullptr;
 }
 
@@ -66,13 +67,15 @@ void SerialContainer<T>::push_back(T data) {
     new_memory[m_size] = data;
     delete [] m_data;
     m_data = new_memory;
+    new_memory = nullptr;
     m_size++;
 }
 
 template<typename T>
 void SerialContainer<T>::insert(int position, T data) {
-    if(position > m_size)
+    if(position > m_size || position < 0) {
         return;
+    }
 
     T *new_memory = new T[m_size + 1];
     m_size++;
@@ -93,8 +96,9 @@ void SerialContainer<T>::insert(int position, T data) {
 
 template<typename T>
 void SerialContainer<T>::erase(int position){
-    if(position > m_size)
+    if(position >= m_size || position < 0) {
         return;
+    }
 
     T *new_memory = new T[m_size - 1];
     T *pTempNewMemory = new_memory;
@@ -119,7 +123,18 @@ int SerialContainer<T>::size() const {
 }
 
 template<typename T>
+T* SerialContainer<T>::getStart() {
+    return m_data;
+}
+
+template<typename T>
 T& SerialContainer<T>::operator[](int element_number){
+    if(element_number <= 0){
+        return m_data[0];
+    }
+    if(element_number >= m_size){
+        return m_data[m_size - 1];
+    }
     return m_data[element_number];
 } // Перегрузка оператора [] для доступа к элементу по индексу
 

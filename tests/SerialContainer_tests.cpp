@@ -1,3 +1,4 @@
+#pragma once
 #include <gtest/gtest.h>
 #include "../SerialContainer.hpp"
 
@@ -15,12 +16,13 @@ struct SerialContainerFixtureInt : public testing::Test{
 TEST(SerialContainerInt, CreateContainer) {
     // Arrange
     SerialContainer<int> *pSerial = nullptr;
-    pSerial = new SerialContainer<int>;
 
     // Act
+    pSerial = new SerialContainer<int>;
 
     // Assert
     EXPECT_TRUE(pSerial != nullptr);
+    EXPECT_EQ(pSerial->size(), 0);
 }
 TEST(SerialContainerInt, PushBack){
     // Arrange
@@ -147,18 +149,85 @@ TEST_F(SerialContainerFixtureInt, CopyContainer){
     EXPECT_EQ(serial.size(), serialTwo.size());
     EXPECT_NE(pOne, pTwo);
 }
-TEST_F(SerialContainerFixtureInt, Destructor){
+TEST_F(SerialContainerFixtureInt, GetElementLessContainerSize){
+    // Arrange
+    int FirstElem = serial[0];
+
+    // Act
+    int ElemLessSize = serial[-1];
+    int ElemGreatLessSize = serial[-100];
+
+    // Assert
+    EXPECT_EQ(FirstElem, ElemLessSize);
+    EXPECT_EQ(FirstElem, ElemGreatLessSize);
+}
+TEST_F(SerialContainerFixtureInt, GetElementMoreContainerSize){
+    // Arrange
+    int elemLastInContainer = serial[serial.size() - 1];
+
+    // Act
+    int elemMoreContSize = serial[serial.size()];
+    int elemGreatMoreLastInContainer = serial[serial.size() + 10];
+
+    // Assert
+    EXPECT_EQ(elemLastInContainer, elemMoreContSize);
+    EXPECT_EQ(elemLastInContainer, elemGreatMoreLastInContainer);
+}
+TEST_F(SerialContainerFixtureInt, EraseElemLessContainerSize){
     // Arrange
 
     // Act
-    for(int i = 0; i < size; i++){
-        serial.erase(0);
-    }
+    serial.erase(-1);
 
     // Assert
-    EXPECT_TRUE(serial[0] != 0);
+    EXPECT_EQ(serial.size(), 10);
+}
+TEST_F(SerialContainerFixtureInt, EraseElemMoreContainerSize){
+    // Arrange
+    // Act
+    serial.erase(serial.size() + 1);
+
+    // Assert
+    EXPECT_EQ(serial.size(), 10);
+}
+TEST_F(SerialContainerFixtureInt, InsertElemLessContainerSize){
+    // Arrange
+
+    // Act
+    serial.insert(-1, 11);
+
+    // Assert
+    EXPECT_EQ(serial.size(), 10);
+}
+TEST_F(SerialContainerFixtureInt, InsertElemMoreContainerSize){
+    // Arrange
+    // Act
+    serial.erase(serial.size());
+
+    // Assert
+    EXPECT_EQ(serial.size(), 10);
 }
 
+// TODO сделать проверку на деструктор
+/*
+TEST(SerialContainer, Destructor){
+    // Arrange
+    SerialContainer<int> serial;
+    for(int i = 0; i < 10; i++){
+        serial.push_back(i);
+    }
+
+    int *firstElem = serial.getStart();
+
+    // Act
+    std::cout << "Ptr class Serial Container before: " << *firstElem++ << std::endl;
+    serial.SerialContainer::~SerialContainer();
+    std::cout << "Ptr class Serial Container after: " << *firstElem++ << std::endl;
+
+    // Assert
+    EXPECT_TRUE(serial.size() == 10);
+}
+*/
 
 int main(int argc, char **argv)
 {

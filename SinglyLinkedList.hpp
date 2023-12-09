@@ -140,6 +140,7 @@ void SinglyLinkedList<T>::erase(int position) {
         Node *temp = prev->pNext;
         prev->pNext = temp->pNext;
         delete temp;
+
     }
     s_size--;
 }
