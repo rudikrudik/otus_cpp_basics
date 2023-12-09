@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 #include "../SerialContainer.hpp"
 
-const int SIZE = 10;
+const int SIZE = 1000;
 
 struct SerialContainerFixtureInt : public testing::Test{
     SerialContainer<int> serial;
@@ -76,7 +76,7 @@ TEST_F(SerialContainerFixtureInt, Size){
     // Arrange
     // Act
     // Assert
-    ASSERT_EQ(serial.size(), 10);
+    ASSERT_EQ(serial.size(), SIZE);
 }
 TEST_F(SerialContainerFixtureInt, PopBack){
     // Arrange
@@ -105,14 +105,14 @@ TEST_F(SerialContainerFixtureInt, PopMiddle){
     serial.erase(middle_pos);
 
     //Assert
-    EXPECT_EQ(serial.size(), 9);
+    EXPECT_EQ(serial.size(), SIZE - 1);
     EXPECT_EQ(middle_pos, temp);
 }
 TEST_F(SerialContainerFixtureInt, PopMiddleCountN){
     // Arrange
     int position = 3;
     // Act
-    for(int i = 0; i < 6; i++){
+    for(int i = 0; i < SIZE - 4; i++){
         serial.erase(position);
     }
     // Assert
@@ -181,7 +181,7 @@ TEST_F(SerialContainerFixtureInt, EraseElemLessContainerSize){
     serial.erase(-1);
 
     // Assert
-    EXPECT_EQ(serial.size(), 10);
+    EXPECT_EQ(serial.size(), SIZE);
 }
 TEST_F(SerialContainerFixtureInt, EraseElemMoreContainerSize){
     // Arrange
@@ -189,7 +189,7 @@ TEST_F(SerialContainerFixtureInt, EraseElemMoreContainerSize){
     serial.erase(serial.size() + 1);
 
     // Assert
-    EXPECT_EQ(serial.size(), 10);
+    EXPECT_EQ(serial.size(), SIZE);
 }
 TEST_F(SerialContainerFixtureInt, InsertElemLessContainerSize){
     // Arrange
@@ -198,7 +198,7 @@ TEST_F(SerialContainerFixtureInt, InsertElemLessContainerSize){
     serial.insert(-1, 11);
 
     // Assert
-    EXPECT_EQ(serial.size(), 10);
+    EXPECT_EQ(serial.size(), SIZE);
 }
 TEST_F(SerialContainerFixtureInt, InsertElemMoreContainerSize){
     // Arrange
@@ -206,7 +206,7 @@ TEST_F(SerialContainerFixtureInt, InsertElemMoreContainerSize){
     serial.erase(serial.size());
 
     // Assert
-    EXPECT_EQ(serial.size(), 10);
+    EXPECT_EQ(serial.size(), SIZE);
 }
 TEST_F(SerialContainerFixtureInt, CheckElements){
     // Arrange
