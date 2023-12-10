@@ -60,7 +60,7 @@ TEST_F(SinglyLinkedListIntFixture, PushMiddle){
     }
 
     // Assert
-    EXPECT_EQ(list.size(), 20);
+    EXPECT_EQ(list.size(), SIZE * 2);
 }
 TEST_F(SinglyLinkedListIntFixture, PopBack){
     // Arrange

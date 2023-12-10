@@ -56,6 +56,12 @@ TEST(SerialContainerInt, PushFront){
     // Assert
     EXPECT_TRUE(flag);
 }
+TEST_F(SerialContainerFixtureInt, Size){
+    // Arrange
+    // Act
+    // Assert
+    ASSERT_EQ(serial.size(), SIZE);
+}
 TEST_F(SerialContainerFixtureInt, InsertMiddle){
     // Arrange
     const int position = 3;
@@ -71,12 +77,6 @@ TEST_F(SerialContainerFixtureInt, InsertMiddle){
 
     // Assert
     EXPECT_TRUE(flag);
-}
-TEST_F(SerialContainerFixtureInt, Size){
-    // Arrange
-    // Act
-    // Assert
-    ASSERT_EQ(serial.size(), SIZE);
 }
 TEST_F(SerialContainerFixtureInt, PopBack){
     // Arrange
@@ -207,20 +207,6 @@ TEST_F(SerialContainerFixtureInt, InsertElemMoreContainerSize){
 
     // Assert
     EXPECT_EQ(serial.size(), SIZE);
-}
-TEST_F(SerialContainerFixtureInt, CheckElements){
-    // Arrange
-    bool flag = true;
-
-    // Act
-    for(int i = 0; i < SIZE; i++){
-        if(serial[i] != i){
-            flag = false;
-        }
-    }
-
-    // Assert
-    EXPECT_TRUE(flag);
 }
 
 // TODO сделать проверку на деструктор

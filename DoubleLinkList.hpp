@@ -107,21 +107,29 @@ void DoubleLinkedList<T>::push_back(T data) {
 template <typename T>
 void DoubleLinkedList<T>::push_front(T data) {
     D_node *new_data = new D_node(data);
-    head->prev = new_data;
-    new_data->next = head;
-    head = new_data;
-    s_size++;
+    if(head == nullptr){
+        push_back(data);
+    }
+    else {
+        head->prev = new_data;
+        new_data->next = head;
+        head = new_data;
+        s_size++;
+    }
+
 }
 
 template <typename T>
 void DoubleLinkedList<T>::insert(int position, T data) {
-    if(position == 0){
-        push_front(data);
+    if(position < 0 || position >= s_size){
         return;
     }
+
+    if(position == 0){
+        return push_front(data);
+    }
     if(position >= s_size - 1){
-        push_back(data);
-        return;
+        return push_back(data);
     }
 
     D_node *current = head;
@@ -141,23 +149,36 @@ void DoubleLinkedList<T>::insert(int position, T data) {
 
 template <typename T>
 T DoubleLinkedList<T>::pop_back() {
-    D_node *temp = tail;
-    tail = temp->prev;
-    tail->next = nullptr;
-    s_size--;
-    return temp->data;
+    if (s_size == 1) {
+        return pop_front();
+    }
+    else {
+        D_node *temp = tail;
+        T data = tail->data;
+        tail = temp->prev;
+        tail->next = nullptr;
+        s_size--;
+        delete temp;
+        return data;
+    }
 }
 
 template <typename T>
 T DoubleLinkedList<T>::pop_front() {
     D_node *temp = head;
+    T data = head->data;
     head = temp->next;
     s_size--;
-    return temp->data;
+    delete temp;
+    return data;
 }
 
 template <typename T>
 T DoubleLinkedList<T>::erase(int position) {
+    if(position < 0 || position >= s_size){
+        return 0;
+    }
+
     if(position == 0){
         return pop_front();
     }
@@ -184,6 +205,12 @@ int DoubleLinkedList<T>::size() const {return s_size;}
 
 template <typename T>
 T& DoubleLinkedList<T>::operator[](int index) {
+    if(index < 0){
+        return head->data;
+    }
+    if(index >= s_size -1){
+        return tail->data;
+    }
     D_node *current = this->head;
     while(index){
         current = current->next;
