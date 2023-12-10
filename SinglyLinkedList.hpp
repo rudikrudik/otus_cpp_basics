@@ -102,9 +102,12 @@ void SinglyLinkedList<T>::push_back(T data) {
 
 template <typename T>
 void SinglyLinkedList<T>::insert(int position, T data) {
-    if(position > s_size -1){
-        push_back(data);
+    if(position < 0 || (position >= s_size && head != nullptr )){
         return;
+    }
+
+    if(position > s_size -1){
+        return push_back(data);
     }
 
     Node *current = this->head;
@@ -129,6 +132,10 @@ template <typename T>
 void SinglyLinkedList<T>::erase(int position) {
     Node *prev = this->head;
 
+    if(position < 0 || position >= s_size){
+        return;
+    }
+
     if(position == 0){
         head = prev->pNext;
     }
@@ -147,7 +154,15 @@ void SinglyLinkedList<T>::erase(int position) {
 
 template <typename T>
 T& SinglyLinkedList<T>::operator[](int element){
+    if(element < 0){
+        return head->data;
+    }
+
     Node *current = this->head;
+
+    if(element >= s_size){
+        element = s_size -1;
+    }
 
     while(element){
         current = current->pNext;

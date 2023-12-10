@@ -1,7 +1,6 @@
 #pragma once
 #include "gtest/gtest.h"
 #include "../SinglyLinkedList.hpp"
-#include <iostream>
 
 const int SIZE = 10;
 
@@ -83,3 +82,83 @@ TEST_F(SinglyLinkedListIntFixture, PopFront){
     // Assert
     EXPECT_EQ(list.size(), 0);
 }
+TEST_F(SinglyLinkedListIntFixture, CopyContainer){
+    // Arrange
+    bool flag = true;
+    SinglyLinkedList<int> listTwo;
+
+    for(int i = 0; i < SIZE / 2; i++){
+        listTwo.push_back(i);
+    }
+
+    listTwo = list;
+
+    // Act
+    for(int i = 0; i < SIZE; i++){
+        if(listTwo[i] != list[i]){
+            flag = false;
+        }
+    }
+
+    // Assert
+    EXPECT_TRUE(flag);
+    EXPECT_EQ(list.size(), listTwo.size());
+}
+TEST_F(SinglyLinkedListIntFixture, GetElementLessContainerSize){
+    // Arrange
+    int firstElem = list[0];
+
+    // Act
+    int elem = list[-1];
+
+    // Assert
+    EXPECT_EQ(firstElem, elem);
+}
+TEST_F(SinglyLinkedListIntFixture, GetElementMoreContainerSize){
+    // Arrange
+    int lastElem = list[SIZE -1];
+
+    // Act
+    int elem = list[SIZE];
+    int elemMore = list[SIZE + 1];
+
+    // Assert
+    EXPECT_EQ(lastElem, elem);
+    EXPECT_EQ(lastElem, elemMore);
+}
+TEST_F(SinglyLinkedListIntFixture, EraseElemLessContainerSize){
+    // Arrange
+
+    // Act
+    list.erase(-1);
+
+    // Assert
+    EXPECT_EQ(list.size(), SIZE);
+}
+TEST_F(SinglyLinkedListIntFixture, EraseElemMoreContainerSize){
+    // Arrange
+    // Act
+    list.erase(SIZE);
+
+    // Assert
+    EXPECT_EQ(list.size(), SIZE);
+}
+TEST_F(SinglyLinkedListIntFixture, InsertElemLessContainerSize){
+    // Arrange
+
+    // Act
+    list.insert(-1, SIZE);
+
+    // Assert
+    EXPECT_EQ(list.size(), SIZE);
+}
+TEST_F(SinglyLinkedListIntFixture, InsertElemMoreContainerSize){
+    // Arrange
+    // Act
+    list.insert(SIZE, SIZE);
+
+    // Assert
+    EXPECT_EQ(list.size(), SIZE);
+}
+
+//TODO сделать проверку на деструктор

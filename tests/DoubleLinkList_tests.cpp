@@ -212,3 +212,5 @@ TEST_F(DoubleLinkListIntFixture, InsertElemMoreContainerSize){
     // Assert
     EXPECT_EQ(d_list.size(), SIZE);
 }
+
+//TODO сделать проверку на деструктор
