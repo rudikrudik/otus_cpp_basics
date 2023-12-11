@@ -29,7 +29,7 @@ private:
 
     };
 
-    int s_size{};
+    int s_size;
     Node *head;
 
 public:
@@ -46,7 +46,6 @@ public:
 
     };
 
-public:
     Iterator begin() const;
     Iterator end() const;
 };

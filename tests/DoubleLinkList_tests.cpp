@@ -2,7 +2,7 @@
 #include "gtest/gtest.h"
 #include "../DoubleLinkList.hpp"
 
-const int SIZE = 100;
+const int SIZE = 1000;
 
 struct DoubleLinkListIntFixture : public testing::Test{
     DoubleLinkedList<int> d_list;
@@ -44,6 +44,25 @@ TEST(DoubleLinkListInt, PushFront){
     }
     // Assert
     EXPECT_EQ(d_list.size(), SIZE);
+}
+TEST(DoubleLinkListInt, Destructor){
+    // Arrange
+    DoubleLinkedList<int> *ptr;
+    ptr = new DoubleLinkedList<int>();
+
+    for(int i = 0; i < SIZE; i++){
+        ptr->push_back(i);
+    }
+
+    int destructorCountBefore = ptr->size();
+
+    // Act
+    ptr->~DoubleLinkedList();
+    int destructorCountAfter = ptr->size();
+
+    // Assert
+    EXPECT_EQ(destructorCountBefore, SIZE);
+    EXPECT_EQ(destructorCountAfter, 0);
 }
 TEST_F(DoubleLinkListIntFixture, Size){
     // Arrange
@@ -212,5 +231,3 @@ TEST_F(DoubleLinkListIntFixture, InsertElemMoreContainerSize){
     // Assert
     EXPECT_EQ(d_list.size(), SIZE);
 }
-
-//TODO сделать проверку на деструктор

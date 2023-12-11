@@ -44,6 +44,25 @@ TEST(SinglyLinkedListInt, PushFront){
     // Assert
     EXPECT_EQ(list.size(), 10);
 }
+TEST(SinglyLinkedListInt, Destructor){
+    // Arrange
+    SinglyLinkedList<int> *ptr;
+    ptr = new SinglyLinkedList<int>();
+
+    for(int i = 0; i < SIZE; i++){
+        ptr->push_back(i);
+    }
+
+    int destructorCountBefore = ptr->size();
+
+    // Act
+    ptr->~SinglyLinkedList();
+    int destructorCountAfter = ptr->size();
+
+    // Assert
+    EXPECT_EQ(destructorCountBefore, SIZE);
+    EXPECT_EQ(destructorCountAfter, 0);
+}
 TEST_F(SinglyLinkedListIntFixture, Size){
     // Arrange
     // Act
@@ -160,5 +179,3 @@ TEST_F(SinglyLinkedListIntFixture, InsertElemMoreContainerSize){
     // Assert
     EXPECT_EQ(list.size(), SIZE);
 }
-
-//TODO сделать проверку на деструктор
