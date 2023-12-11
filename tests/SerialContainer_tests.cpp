@@ -1,6 +1,7 @@
 #pragma once
 #include <gtest/gtest.h>
 #include "../SerialContainer.hpp"
+#include <iostream>
 
 const int SIZE = 1000;
 
@@ -209,23 +210,20 @@ TEST_F(SerialContainerFixtureInt, InsertElemMoreContainerSize){
     EXPECT_EQ(serial.size(), SIZE);
 }
 
-// TODO сделать проверку на деструктор
 /*
-TEST(SerialContainer, Destructor){
+TEST(SerialContainerInt, Destructor){
     // Arrange
-    SerialContainer<int> serial;
-    for(int i = 0; i < 10; i++){
-        serial.push_back(i);
+    SerialContainer<int> *ptr;
+    ptr = new SerialContainer<int>();
+
+    for(int i = 0; i < SIZE; i++){
+        ptr->push_back(i);
     }
 
-    int *firstElem = serial.getStart();
-
     // Act
-    std::cout << "Ptr class Serial Container before: " << *firstElem++ << std::endl;
-    serial.SerialContainer::~SerialContainer();
-    std::cout << "Ptr class Serial Container after: " << *firstElem++ << std::endl;
 
     // Assert
-    EXPECT_TRUE(serial.size() == 10);
+    EXPECT_TRUE(ptr != nullptr);
+
 }
 */

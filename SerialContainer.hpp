@@ -14,7 +14,6 @@ public:
     void insert(int position, T data);
     void erase(int position);
     int size() const;
-    T* getStart();
 
     // Перегрузки операторов
     T& operator[](int element_number);
@@ -120,11 +119,6 @@ void SerialContainer<T>::erase(int position){
 template<typename T>
 int SerialContainer<T>::size() const {
     return m_size;
-}
-
-template<typename T>
-T* SerialContainer<T>::getStart() {
-    return m_data;
 }
 
 template<typename T>
