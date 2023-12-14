@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 3.8)
 
 project(06_homework)
 
-add_subdirectory(tests)
-
 add_executable(06_homework
         main.cpp
         SerialContainer.hpp
