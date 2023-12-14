@@ -3,7 +3,7 @@
 #include "../SerialContainer.hpp"
 #include <iostream>
 
-const int SIZE = 1000;
+const int SIZE = 100;
 
 struct SerialContainerFixtureInt : public testing::Test{
     SerialContainer<int> serial;

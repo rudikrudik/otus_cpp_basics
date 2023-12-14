@@ -66,7 +66,6 @@ void SerialContainer<T>::push_back(T data) {
     new_memory[m_size] = data;
     delete [] m_data;
     m_data = new_memory;
-    new_memory = nullptr;
     m_size++;
 }
 
@@ -146,7 +145,6 @@ SerialContainer<T>& SerialContainer<T>::operator=(const SerialContainer &rhs){
 
     return *this;
 }// Перегрузка оператора копирования
-
 
 // Методы итератора
 template<typename T>

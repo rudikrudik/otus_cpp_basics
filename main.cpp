@@ -1,18 +1,21 @@
 #include <iostream>
-#include <string>
 #include "SerialContainer.hpp"
+#include "SerialContainerMemReserve.hpp"
 #include "SinglyLinkedList.hpp"
 #include "DoubleLinkList.hpp"
 
 
 void SerialContainerExample();
+void SerialContainerMemReserveExample();
 void SinglyLinkedListExample();
 void DoubleLinkListExample();
 
 int main() {
     SerialContainerExample(); // Вызов функции с примером работы последовательного контейнера
-    //SinglyLinkedListExample();
-    //DoubleLinkListExample();
+    SerialContainerMemReserveExample();
+    SinglyLinkedListExample();
+    DoubleLinkListExample();
+
     return 0;
 }
 
@@ -102,6 +105,81 @@ void SerialContainerExample(){
     std::cout << "After list[2] = 100:  ";
     std::cout << serialTree[2] << std::endl << std::endl;
 } // Возможности последовательного контейнера
+void SerialContainerMemReserveExample(){
+    std::cout << "Serial container with memory reserved Container Example" << std::endl << std::endl;
+    SerialContainerMR<int> serialMR;
+
+    for(int i = 0; i < 10; i++){
+        serialMR.push_back(i);
+    } // Заполняем list числами от 0 до 10
+
+    std::cout << "Add numbers to MR Container" << std::endl;
+    std::cout << "Expected: 0 1 2 3 4 5 6 7 8 9" << std::endl;
+    std::cout << "Result: ";
+    SerialContainerPrint(serialMR);
+    std::cout << std::endl << std::endl;
+
+    std::cout << "Object serialMR size"<< std::endl;
+    std::cout << "Expected: 10" << std::endl;
+    std::cout << "Result: ";
+    std::cout << serialMR.size() << std::endl << std::endl; // Размер контейнера
+
+    std::cout << "Delete some numbers" << std::endl;
+    std::cout << "Expected: 0 1 3 5 7 8 9" << std::endl;
+    serialMR.erase(2); serialMR.erase(3); serialMR.erase(4); // Удаление 3, 5, 7, элемента
+    std::cout << "Result: ";
+    SerialContainerPrint(serialMR);
+    std::cout << std::endl << std::endl;
+
+
+    std::cout << "Add number 10 to start MR container" << std::endl;
+    std::cout << "Expected: 10 0 1 3 5 7 8 9" << std::endl;
+    serialMR.insert(0, 10);
+    std::cout << "Result: ";
+    SerialContainerPrint(serialMR);
+    std::cout << std::endl << std::endl;
+
+    std::cout << "Add number 20 to middle MR container" << std::endl;
+    std::cout << "Expected: 10 0 1 3 20 5 7 8 9" << std::endl;
+    serialMR.insert(4, 20);
+    std::cout << "Result: ";
+    SerialContainerPrint(serialMR);
+    std::cout << std::endl << std::endl;
+
+    std::cout << "Add number 30 to end MR container" << std::endl;
+    std::cout << "Expected: 10 0 1 3 20 5 7 8 9 30" << std::endl;
+    serialMR.insert(90, 30);
+    std::cout << "Result: ";
+    SerialContainerPrint(serialMR);
+    std::cout << std::endl << std::endl;
+
+    std::cout << "Copy constructor MR container" << std::endl;
+    std::cout << "Expected: obj serialMRTwo == obj serialMR" << std::endl;
+    SerialContainerMR serialMRTwo(serialMR); // Создаем второй объект контейнера
+    std::cout << "Result serialMR data: ";
+    SerialContainerPrint(serialMR);
+    std::cout << std::endl << "serialMR size: " << serialMR.size() << std::endl;
+    std::cout << "Result serialTwo data: ";
+    SerialContainerPrint(serialMRTwo);
+    std::cout << std::endl << "serialMRTwo size: " << serialMRTwo.size() << std::endl << std::endl;
+
+    std::cout << "Copy assignment MR container" << std::endl;
+    std::cout << "Expected: obj listTree == obj listOne after copy" << std::endl;
+    SerialContainerMR serialMRTree = SerialContainerMR<int>();
+    serialMRTree.push_back(20); serialMRTree.push_back(8); serialMRTree.push_back(12);
+    std::cout << "serialMRTree before copy: ";
+    SerialContainerPrint(serialMRTree);
+    serialMRTree = serialMR;
+    std::cout << std::endl;
+    std::cout << "serialMRTree after copy: ";
+    SerialContainerPrint(serialMRTree);
+    std::cout << std::endl << std::endl;
+
+    std::cout << "Edit element in index 2" << std::endl;
+    serialMR[2] = 100;
+    std::cout << "Result: ";
+    std::cout << serialMR[2] << std::endl;
+} // Возможности последовательного контейнера с резервированием памяти
 void SinglyLinkedListExample(){
     std::cout << "Singly List Container Example" << std::endl << std::endl;
     SinglyLinkedList<int> listOne;
@@ -253,4 +331,4 @@ void DoubleLinkListExample(){
     d_listOne[2] = 100;
     std::cout << "Result: ";
     std::cout << d_listOne[2] << std::endl;
-}
+} // Возможности двух связного списка

@@ -9,7 +9,8 @@ add_executable(06_homework
         SerialContainer.hpp
         SinglyLinkedList.hpp
         SerialContaineriterator.hpp
-        DoubleLinkList.hpp)
+        DoubleLinkList.hpp
+        SerialContainerMemReserve.hpp)
 
 set_target_properties(06_homework PROPERTIES
         CXX_STANDARD 17

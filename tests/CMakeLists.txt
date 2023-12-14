@@ -10,11 +10,17 @@ include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 add_executable(containers_tests
         SerialContainer_tests.cpp
         SinglyLinkedList_tests.cpp
-        DoubleLinkList_tests.cpp)
+        DoubleLinkList_tests.cpp
+        SerialContainerMemReserve_tests.cpp)
 
 add_executable(
         serial_container
         SerialContainer_tests.cpp
+)
+
+add_executable(
+        serial_containerMR
+        SerialContainerMemReserve_tests.cpp
 )
 
 add_executable(
@@ -29,5 +35,6 @@ add_executable(
 
 target_link_libraries(containers_tests gtest gtest_main)
 target_link_libraries(serial_container gtest gtest_main)
+target_link_libraries(serial_containerMR gtest gtest_main)
 target_link_libraries(singly_linked_container gtest gtest_main)
 target_link_libraries(double_link_container gtest gtest_main)
