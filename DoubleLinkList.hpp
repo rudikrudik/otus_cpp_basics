@@ -158,7 +158,7 @@ T DoubleLinkedList<T>::pop_back() {
         tail = temp->prev;
         tail->next = nullptr;
         s_size--;
-        delete temp;
+        delete [] temp;
         return data;
     }
 }
@@ -169,7 +169,7 @@ T DoubleLinkedList<T>::pop_front() {
     T data = head->data;
     head = temp->next;
     s_size--;
-    delete temp;
+    delete [] temp;
     return data;
 }
 
@@ -192,12 +192,12 @@ T DoubleLinkedList<T>::erase(int position) {
         position--;
     }
 
-    D_node *temp = current;
+    T temp = current->data;
     current->prev->next = current->next;
     current->next->prev = current->prev;
-    delete current;
+    delete [] current;
     s_size--;
-    return temp->data;
+    return temp;
 }
 
 template <typename T>
