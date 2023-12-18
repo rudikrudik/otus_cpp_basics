@@ -14,7 +14,7 @@ int get_capacity(){
 }
 
 struct SerialContainerMemReserveIntFixture : testing::Test{
-    SerialContainerMR<int> serialMR;
+    SerialContainerMR<int> serialMR{SerialContainerMR<int>()};
 
     void SetUp() override {
         for(int i = 0; i < SIZE; i++){
@@ -26,19 +26,17 @@ struct SerialContainerMemReserveIntFixture : testing::Test{
 
 TEST(SerialContainerMemReserveInt, CreateContainer){
     // Arrange
-    SerialContainerMR<int> *ptr = nullptr;
+    SerialContainerMR<int> serialMR {SerialContainerMR<int>()};
 
     // Act
-    ptr = new SerialContainerMR<int>;
 
     // Assert
-    EXPECT_TRUE(ptr != nullptr);
-    EXPECT_EQ(ptr->size(), 0);
-    EXPECT_EQ(ptr->capacity(), 1);
+    EXPECT_EQ(serialMR.size(), 0);
+    EXPECT_EQ(serialMR.capacity(), 1);
 }
 TEST(SerialContainerMemReserveInt, PushBack){
     // Arrange
-    SerialContainerMR<int> serialMR = SerialContainerMR<int>();
+    SerialContainerMR<int> serialMR {SerialContainerMR<int>()};
 
     // Act
     for(int i = 0; i < SIZE; i++){
@@ -51,19 +49,15 @@ TEST(SerialContainerMemReserveInt, PushBack){
 }
 TEST(SerialContainerMemReserveInt, PushFront){
     // Arrange
-    bool flag = true;
-    SerialContainerMR<int> serialMR = SerialContainerMR<int>();
+    SerialContainerMR<int> serialMR{SerialContainerMR<int>()};
 
     // Act
     for(int i = 0; i < SIZE; i++){
         serialMR.insert(0, i);
-        if(serialMR[0] != i){
-            flag = false;
-        }
+        EXPECT_EQ(i, serialMR[0]);
     }
 
     // Assert
-    EXPECT_TRUE(flag);
     EXPECT_EQ(serialMR.size(), SIZE);
     EXPECT_EQ(serialMR.capacity(), get_capacity() - SIZE);
 }
@@ -81,33 +75,24 @@ TEST_F(SerialContainerMemReserveIntFixture, Capacity){
 }
 TEST_F(SerialContainerMemReserveIntFixture, CheckElements){
     // Arrange
-    bool flag = true;
-
     // Act
+    // Assert
     for(int i = 0; i < SIZE; i++){
-        if(serialMR[i] != i){
-            flag = false;
-        }
+        EXPECT_EQ(i, serialMR[i]);
     }
 
-    // Assert
-    EXPECT_TRUE(flag);
 }
 TEST_F(SerialContainerMemReserveIntFixture, InsertMiddle){
     // Arrange
     const int position = 3;
-    bool flag = true;
 
     // Act
+    // Assert
     for(int i = 0; i < SIZE; i++){
         serialMR.insert(position, i);
-        if(serialMR[position] != i){
-            flag = false;
-        }
+        EXPECT_EQ(i, serialMR[position]);
     }
 
-    // Assert
-    EXPECT_TRUE(flag);
 }
 TEST_F(SerialContainerMemReserveIntFixture, PopBack){
     // Arrange
@@ -149,35 +134,19 @@ TEST_F(SerialContainerMemReserveIntFixture, PopMiddleCountN){
     // Assert
     EXPECT_EQ(serialMR.size(), 4);
 }
-TEST_F(SerialContainerMemReserveIntFixture, GetElement){
-    // Arrange
-    bool flag = true;
-    // Act
-    for(int i = 0; i < SIZE; i++){
-        if(serialMR[i] != i){
-            flag = false;
-        }
-    }
-    // Assert
-    EXPECT_TRUE(flag);
-}
 TEST_F(SerialContainerMemReserveIntFixture, CopyContainer){
     // Arrange
-    SerialContainerMR<int> serialTwoMR;
+    SerialContainerMR<int> serialTwoMR {SerialContainerMR<int>()};
     serialTwoMR = serialMR;
     SerialContainerMR<int> *pOne = &serialMR;
     SerialContainerMR<int> *pTwo = &serialTwoMR;
 
-    bool flag = true;
     //Act
     for(int i = 0; i < SIZE; i++){
-        if(serialMR[i] != serialTwoMR[i]){
-            flag = false;
-        }
+        EXPECT_EQ(serialMR[i], serialTwoMR[i]);
     }
 
     //Assert
-    EXPECT_TRUE(flag);
     EXPECT_EQ(serialMR.size(), serialTwoMR.size());
     EXPECT_NE(pOne, pTwo);
     EXPECT_EQ(serialMR.capacity(), serialTwoMR.capacity());

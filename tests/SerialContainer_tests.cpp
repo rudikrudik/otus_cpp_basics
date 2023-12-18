@@ -6,7 +6,7 @@
 const int SIZE = 100;
 
 struct SerialContainerFixtureInt : public testing::Test{
-    SerialContainer<int> serial;
+    SerialContainer<int> serial{SerialContainer<int>()};
 
     void SetUp() override{
         for(int i = 0; i < SIZE; i++){
@@ -17,45 +17,36 @@ struct SerialContainerFixtureInt : public testing::Test{
 
 TEST(SerialContainerInt, CreateContainer) {
     // Arrange
-    SerialContainer<int> *pSerial = nullptr;
+    SerialContainer<int> pSerial{SerialContainer<int>()};
 
     // Act
-    pSerial = new SerialContainer<int>;
 
     // Assert
-    EXPECT_TRUE(pSerial != nullptr);
-    EXPECT_EQ(pSerial->size(), 0);
+    EXPECT_EQ(pSerial.size(), 0);
 }
 TEST(SerialContainerInt, PushBack){
     // Arrange
-    SerialContainer<int> serial;
-    bool flag = true;
+    SerialContainer<int> serial{SerialContainer<int>()};
 
     // Act
     for(int i = 0; i < SIZE; i++){
         serial.push_back(i);
-        if(serial[i] != i){
-            flag = false;
-        }
     }
 
     // Assert
-    EXPECT_TRUE(flag);
+    EXPECT_EQ(serial.size(), SIZE);
 }
 TEST(SerialContainerInt, PushFront){
     // Arrange
-    SerialContainer<int> serial;
-    bool flag = true;
+    SerialContainer<int> serial{SerialContainer<int>()};
 
     // Act
     for(int i = 0; i < SIZE; i++){
         serial.insert(0, i);
-        if(serial[0] != i){
-            flag = false;
-        }
     }
+
     // Assert
-    EXPECT_TRUE(flag);
+    EXPECT_EQ(serial.size(), SIZE);
 }
 TEST_F(SerialContainerFixtureInt, Size){
     // Arrange
@@ -66,18 +57,15 @@ TEST_F(SerialContainerFixtureInt, Size){
 TEST_F(SerialContainerFixtureInt, InsertMiddle){
     // Arrange
     const int position = 3;
-    bool flag = true;
 
     // Act
     for(int i = 0; i < SIZE; i++){
         serial.insert(position, i);
-            if(serial[position] != i){
-                flag = false;
-            }
+        EXPECT_EQ(i, serial[position]);
         }
 
     // Assert
-    EXPECT_TRUE(flag);
+    EXPECT_EQ(serial.size(), SIZE * 2);
 }
 TEST_F(SerialContainerFixtureInt, PopBack){
     // Arrange
@@ -121,33 +109,27 @@ TEST_F(SerialContainerFixtureInt, PopMiddleCountN){
 }
 TEST_F(SerialContainerFixtureInt, GetElement){
     // Arrange
-    bool flag = true;
     // Act
-    for(int i = 0; i < SIZE; i++){
-        if(serial[i] != i){
-            flag = false;
-        }
-    }
+
     // Assert
-    EXPECT_TRUE(flag);
+    for(int i = 0; i < SIZE; i++){
+        EXPECT_EQ(i, serial[i]);
+    }
+
 }
 TEST_F(SerialContainerFixtureInt, CopyContainer){
     // Arrange
-    SerialContainer<int> serialTwo;
+    SerialContainer<int> serialTwo{SerialContainer<int>()};
     serialTwo = serial;
     SerialContainer<int> *pOne = &serial;
     SerialContainer<int> *pTwo = &serialTwo;
 
-    bool flag = true;
     //Act
     for(int i = 0; i < SIZE; i++){
-        if(serial[i] != serialTwo[i]){
-            flag = false;
-        }
+        EXPECT_EQ(serial[i], serialTwo[i]);
     }
 
     //Assert
-    EXPECT_TRUE(flag);
     EXPECT_EQ(serial.size(), serialTwo.size());
     EXPECT_NE(pOne, pTwo);
 }

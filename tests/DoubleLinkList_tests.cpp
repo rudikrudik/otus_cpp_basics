@@ -5,7 +5,7 @@
 const int SIZE = 1000;
 
 struct DoubleLinkListIntFixture : public testing::Test{
-    DoubleLinkedList<int> d_list;
+    DoubleLinkedList<int> d_list{DoubleLinkedList<int>()};
 
     void SetUp() override {
         for(int i = 0; i < SIZE; i++) {
@@ -16,28 +16,28 @@ struct DoubleLinkListIntFixture : public testing::Test{
 
 TEST(DoubleLinkListInt, CreateContainer){
     // Arrange
-    DoubleLinkedList<int> *pD_list = nullptr;
 
     // Act
-    pD_list = new DoubleLinkedList<int>;
+    DoubleLinkedList<int> pD_list{DoubleLinkedList<int>()};
 
     // Assert
-    EXPECT_TRUE(pD_list != nullptr);
-    EXPECT_EQ(pD_list->size(), 0);
+    EXPECT_EQ(pD_list.size(), 0);
 }
 TEST(DoubleLinkListInt, PushBack){
     // Arrange
-    DoubleLinkedList<int> d_list = DoubleLinkedList<int>();
+    DoubleLinkedList<int> d_list{DoubleLinkedList<int>()};
+
     // Act
     for(int i = 0; i < SIZE; i++){
         d_list.push_back(i);
     }
+
     // Assert
     EXPECT_EQ(d_list.size(), SIZE);
 }
 TEST(DoubleLinkListInt, PushFront){
     // Arrange
-    DoubleLinkedList<int> d_list = DoubleLinkedList<int>();
+    DoubleLinkedList<int> d_list{DoubleLinkedList<int>()};
     // Act
     for(int i = 0; i < SIZE; i++){
         d_list.push_front(i);
@@ -47,18 +47,17 @@ TEST(DoubleLinkListInt, PushFront){
 }
 TEST(DoubleLinkListInt, Destructor){
     // Arrange
-    DoubleLinkedList<int> *ptr;
-    ptr = new DoubleLinkedList<int>();
+    DoubleLinkedList<int> d_list{DoubleLinkedList<int>()};
 
     for(int i = 0; i < SIZE; i++){
-        ptr->push_back(i);
+        d_list.push_back(i);
     }
 
-    int destructorCountBefore = ptr->size();
+    int destructorCountBefore = d_list.size();
 
     // Act
-    ptr->~DoubleLinkedList();
-    int destructorCountAfter = ptr->size();
+    d_list.~DoubleLinkedList();
+    int destructorCountAfter = d_list.size();
 
     // Assert
     EXPECT_EQ(destructorCountBefore, SIZE);
@@ -84,75 +83,51 @@ TEST_F(DoubleLinkListIntFixture, InsertMiddle){
 }
 TEST_F(DoubleLinkListIntFixture, CheckElements){
     // Arrange
-    bool flag = true;
 
     // Act
-    for(int i = 0; i < SIZE; i++){
-        if(d_list[i] != i){
-            flag = false;
-        }
-    }
 
     // Assert
-    EXPECT_TRUE(flag);
+    for(int i = 0; i < SIZE; i++){
+        EXPECT_EQ(i, d_list[i]);
+    }
 }
 TEST_F(DoubleLinkListIntFixture, PopBack) {
     // Arrange
-    int lastElemD_list = 0;
-    bool flag = true;
 
     // Act
     for (int i = SIZE; i > 0; i--) {
-        lastElemD_list = d_list.pop_back();
-        if (lastElemD_list != i -1) {
-            flag = false;
-        }
+        EXPECT_EQ(d_list.pop_back(), i - 1);
     }
 
     // Assert
-    EXPECT_TRUE(flag);
     EXPECT_EQ(d_list.size(), 0);
 }
 TEST_F(DoubleLinkListIntFixture, PopFront){
     // Arrange
-    int firstElem = 0;
-    bool flag = true;
 
     // Act
     for(int i = 0; i < SIZE; i++){
-        firstElem = d_list.pop_front();
-        if(firstElem != i){
-            flag = false;
-        }
+        EXPECT_EQ(d_list.pop_front(), i);
     }
 
     // Assert
-    EXPECT_TRUE(flag);
     EXPECT_EQ(d_list.size(), 0);
-
 }
 TEST_F(DoubleLinkListIntFixture, PopMiddle){
     // Arrange
-    bool flag = true;
     int position = SIZE / 2;
-    int elemMiddle = 0;
 
     // Act
     for(int i = position; i < SIZE; i++){
-        elemMiddle = d_list.erase(position);
-        if(elemMiddle != i){
-            flag = false;
-        }
+        EXPECT_EQ(d_list.erase(position), i);
     }
 
     // Assert
-    EXPECT_TRUE(flag);
     EXPECT_EQ(d_list.size(), position);
 }
 TEST_F(DoubleLinkListIntFixture, CopyContainer){
     // Arrange
-    bool flag = true;
-    DoubleLinkedList<int> d_listTwo;
+    DoubleLinkedList<int> d_listTwo{DoubleLinkedList<int>()};
 
     for(int i = 0; i < SIZE / 2; i++){
         d_listTwo.push_back(i);
@@ -162,13 +137,10 @@ TEST_F(DoubleLinkListIntFixture, CopyContainer){
 
     // Act
     for(int i = 0; i < SIZE; i++){
-        if(d_listTwo[i] != d_list[i]){
-            flag = false;
-        }
+        EXPECT_EQ(d_listTwo[i], d_list[i]);
     }
 
     // Assert
-    EXPECT_TRUE(flag);
     EXPECT_EQ(d_list.size(), d_listTwo.size());
 }
 TEST_F(DoubleLinkListIntFixture, GetElementLessContainerSize){

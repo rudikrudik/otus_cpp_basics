@@ -2,14 +2,13 @@
 #include "gtest/gtest.h"
 #include "../SinglyLinkedList.hpp"
 
-const int SIZE = 10;
+const int SIZE = 100;
 
 struct SinglyLinkedListIntFixture : public testing::Test{
-    const int size = 10;
-    SinglyLinkedList<int> list;
+    SinglyLinkedList<int> list{SinglyLinkedList<int>()};
 
     void SetUp() override {
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < SIZE; i++) {
             list.push_back(i);
         }
     }
@@ -17,47 +16,47 @@ struct SinglyLinkedListIntFixture : public testing::Test{
 
 TEST(SinglyLinkedListInt, CreateContainer){
     // Arrange
-    SinglyLinkedList<int> *pList = nullptr;
+    SinglyLinkedList<int> list {SinglyLinkedList<int>()};
     // Act
-    pList = new SinglyLinkedList<int>;
+
     // Assert
-    EXPECT_TRUE(pList != nullptr);
-    EXPECT_EQ(pList->size(), 0);
+    EXPECT_EQ(list.size(), 0);
 }
 TEST(SinglyLinkedListInt, PushBack){
     // Arrange
-    SinglyLinkedList<int> list;
+    SinglyLinkedList<int> list {SinglyLinkedList<int>()};
     // Act
     for(int i = 0; i < SIZE; i++){
         list.push_back(i);
     }
     // Assert
-    EXPECT_EQ(list.size(), 10);
+    EXPECT_EQ(list.size(), SIZE);
 }
 TEST(SinglyLinkedListInt, PushFront){
     // Arrange
-    SinglyLinkedList<int> list = SinglyLinkedList<int>();
+    SinglyLinkedList<int> list{SinglyLinkedList<int>()};
+
     // Act
     for(int i = 0; i < SIZE; i++){
         list.insert(0, i);
     }
+
     // Assert
-    EXPECT_EQ(list.size(), 10);
+    EXPECT_EQ(list.size(), SIZE);
 }
 TEST(SinglyLinkedListInt, Destructor){
     // Arrange
-    SinglyLinkedList<int> *ptr;
-    ptr = new SinglyLinkedList<int>();
+    SinglyLinkedList<int> list {SinglyLinkedList<int>()};
 
     for(int i = 0; i < SIZE; i++){
-        ptr->push_back(i);
+        list.push_back(i);
     }
 
-    int destructorCountBefore = ptr->size();
+    int destructorCountBefore = list.size();
 
     // Act
-    ptr->~SinglyLinkedList();
-    int destructorCountAfter = ptr->size();
+    list.~SinglyLinkedList();
+    int destructorCountAfter = list.size();
 
     // Assert
     EXPECT_EQ(destructorCountBefore, SIZE);
@@ -101,10 +100,17 @@ TEST_F(SinglyLinkedListIntFixture, PopFront){
     // Assert
     EXPECT_EQ(list.size(), 0);
 }
+TEST_F(SinglyLinkedListIntFixture, CheckElements){
+    // Arrange
+    // Act
+    for(int i = 0; i < SIZE; i++){
+        EXPECT_EQ(i, list[i]);
+    }
+    // Assert
+}
 TEST_F(SinglyLinkedListIntFixture, CopyContainer){
     // Arrange
-    bool flag = true;
-    SinglyLinkedList<int> listTwo;
+    SinglyLinkedList<int> listTwo{SinglyLinkedList<int>()};
 
     for(int i = 0; i < SIZE / 2; i++){
         listTwo.push_back(i);
@@ -114,13 +120,10 @@ TEST_F(SinglyLinkedListIntFixture, CopyContainer){
 
     // Act
     for(int i = 0; i < SIZE; i++){
-        if(listTwo[i] != list[i]){
-            flag = false;
-        }
+        EXPECT_EQ(list[i], listTwo[i]);
     }
 
     // Assert
-    EXPECT_TRUE(flag);
     EXPECT_EQ(list.size(), listTwo.size());
 }
 TEST_F(SinglyLinkedListIntFixture, GetElementLessContainerSize){
